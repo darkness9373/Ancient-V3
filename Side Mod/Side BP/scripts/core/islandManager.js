@@ -2,6 +2,115 @@ import { Player } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+export function cancelApply(player, islandId) {
+    const playerData = getPlayerData(player.name);
+    if (!playerData.appliedTo.includes(islandId)) return { success: false, message: 'You have not applied to this island' };
+    const islandKey = `island:${islandId}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: 'Island not found' };
+
+    // Remove from Island Pending Requests
+    island.pendingRequests = island.pendingRequests.filter(p => p !== player.name);
+    setData(islandKey, island);
+
+    // Remove from Player Data
+    playerData.appliedTo = playerData.appliedTo.filter(p => p !== islandId);
+    playerData.incomingApproval = playerData.incomingApproval.filter(p => p !== islandId);
+    savePlayerData(player.name, playerData);
+
+    return { success: true, message: 'You cancelled your application' };
+}
+
+/**
+ * 
+ * @param {Player} player 
+ * @param {string} islandId 
+ */
+export function finalizeJoin(player, islandId) {
+    const playerData = getPlayerData(player.name);
+
+    // Validate Player State
+    if (playerData.currentIsland !== null) return { success: false, message: 'You are already in an island' };
+    if (!playerData.incomingApproval.includes(islandId)) return { success: false, message: 'You are not applying to this island' };
+    const islandKey = `island:${islandId}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: 'Island not found' };
+    if (island.status !== 'active' && island.host !== null) return { success: false, message: 'Island is not available' };
+
+    // Cek Full Island
+    if (island.members.length >= island.maxMembers) return { success: false, message: 'Island is full' };
+
+    // Join Island
+    island.members.push(player.name);
+    island.pendingRequests = island.pendingRequests.filter(p => p !== player.name);
+    setData(islandKey, island);
+
+    // Update Player Data
+    playerData.currentIsland = islandId;
+    playerData.role = 'member';
+    playerData.appliedTo = [];
+    playerData.incomingApproval = [];
+    savePlayerData(player.name, playerData);
+
+    return { success: true, message: `You joined ${island.name}` };
+}
+
+export function acceptPlayer(islandId, playerName) {
+    const islandKey = `island:${islandId}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: 'Island not found' };
+
+    // Validate
+    if (!island.pendingRequests.includes(playerName)) return { success: false, message: 'Player is not applying to this island' };
+    const playerData = getPlayerData(playerName);
+    if (playerData.currentIsland !== null) {
+        island.pendingRequests = island.pendingRequests.filter(p => p !== playerName);
+        setData(islandKey, island);
+        playerData.appliedTo = playerData.appliedTo.filter(p => p !== islandId);
+        savePlayerData(playerName, playerData);
+        return { success: false, message: 'Player already joined another island' };
+    }
+
+    // Cek Full Island
+    if (island.members.length >= island.maxMembers) return { success: false, message: 'Island is full' };
+
+    // Remove from Pending Requests
+    island.pendingRequests = island.pendingRequests.filter(p => p !== playerName);
+    setData(islandKey, island);
+
+    // Update Player Data
+    playerData.incomingApproval.push(islandId);
+    playerData.appliedTo = playerData.appliedTo.filter(p => p !== islandId);
+    savePlayerData(playerName, playerData);
+
+    return { success: true, message: `You accepted ${island.name}` };
+}
+
+/**
+ * 
+ * @param {Player} player 
+ * @param {string} islandId 
+ */
+export function applyToIsland(player, islandId) {
+    const playerData = getPlayerData(player.name);
+    if (playerData.currentIsland) return { success: false, message: 'You are already in an island' };
+    const islandKey = `island:${islandId}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: 'Island not found' };
+    if (island.status === 'abandoned') return { success: false, message: 'Island is abandoned' };
+    if (island.host === null) return { success: false, message: 'Island is not taken' };
+    if (island.members.length >= island.maxMembers) return { success: false, message: 'Island is full' };
+    if (playerData.appliedTo.includes(islandId)) return { success: false, message: 'You have already applied to this island' };
+
+    island.pendingRequests.push(player.name);
+    setData(islandKey, island);
+
+    playerData.appliedTo.push(islandId);
+    savePlayerData(player.name, playerData);
+
+    return { success: true, message: `You applied to ${island.name}` };
+}
+
 /**
  * 
  * @param {Player} player 
