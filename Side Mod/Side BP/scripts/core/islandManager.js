@@ -2,6 +2,41 @@ import { Player } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+/** @param {Player} player */
+export function leaveIsland(player) {
+    const playerData = getPlayerData(player.name);
+    if (!playerData.currentIsland) return { success: false, message: 'You are not in an island' };
+    const islandKey = `island:${playerData.currentIsland}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: 'Island data corrupted' };
+
+    // HOST
+    if (playerData.role === 'host') {
+        if (island.members.length > 1) {
+            return { success: false, message: 'You cannot leave the island because you are the only member' };
+        }
+        island.host = null;
+        island.members = [];
+        island.status = 'abandoned';
+        island.pendingRequests = [];
+        setData(islandKey, island);
+        playerData.currentIsland = null;
+        playerData.role = null;
+        savePlayerData(player.name, playerData);
+
+        return { success: true, message: 'Your island was abandoned' };
+    }
+
+    // MEMBER
+    island.members = island.members.filter(m => m !== player.name);
+    setData(islandKey, island);
+    playerData.currentIsland = null;
+    playerData.role = null;
+    savePlayerData(player.name, playerData);
+
+    return { success: true, message: 'You left the island' };
+}
+
 /**
  * 
  * @param {Player} player 
