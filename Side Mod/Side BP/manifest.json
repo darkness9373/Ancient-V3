@@ -1,0 +1,52 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "Ancient Fish",
+        "description": "-",
+        "uuid": "65f4c968-b93b-45d6-8c1e-1a650f2d4efe",
+        "version": [
+            1,
+            0,
+            1
+        ],
+        "min_engine_version": [
+            1,
+            21,
+            80
+        ]
+    },
+    "modules": [
+        {
+            "description": "-",
+            "type": "data",
+            "uuid": "f9792a2c-a140-4407-99d5-ed275104f791",
+            "version": [
+                1,
+                0,
+                1
+            ]
+        },
+        {
+            "description": "-",
+            "type": "script",
+            "language": "javascript",
+            "uuid": "554e98cc-da2b-4d5c-9b7f-b4d7beb98180",
+            "version": [
+                1,
+                0,
+                1
+            ],
+            "entry": "scripts/main.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "2.5.0"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
+            "version": "2.0.0"
+        }
+    ]
+}
