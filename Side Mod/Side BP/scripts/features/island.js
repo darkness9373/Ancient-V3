@@ -11,7 +11,7 @@ system.beforeEvents.startup.subscribe(data => {
         if (!(player instanceof Player)) return;
         const haveIsland = player.getDynamicProperty('haveIsland');
         if (!haveIsland) {
-            islandList(player);
+            system.run(() => islandList(player));
             return
         }
     })
