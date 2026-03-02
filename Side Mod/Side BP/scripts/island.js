@@ -43,21 +43,25 @@ system.beforeEvents.startup.subscribe(data => {
         const r = leaveIsland(player);
         player.sendMessage(r.message)
     })
-    data.customCommandRegistry.registerCommand({
-        name: 'as:transfer',
-        description: 'Transfer host to another player',
-        cheatsRequired: true,
-        permissionLevel: CommandPermissionLevel.Any,
-        mandatoryParameters: [
-            {
-                name: 'player',
-                type: CustomCommandParamType.PlayerSelector
-            }
-        ]
-    }, (origin, plr) => {
-        const player = origin.sourceEntity;
-        if (!(player instanceof Player)) return;
-        const r = transferHost(player, plr.name);
-        player.sendMessage(r.message)
-    })
+    try {
+        data.customCommandRegistry.registerCommand({
+            name: 'as:transfer',
+            description: 'Transfer host to another player',
+            cheatsRequired: true,
+            permissionLevel: CommandPermissionLevel.Any,
+            mandatoryParameters: [
+                {
+                    name: 'player',
+                    type: CustomCommandParamType.PlayerSelector
+                }
+            ]
+        }, (origin, plr) => {
+            const player = origin.sourceEntity;
+            if (!(player instanceof Player)) return;
+            const r = transferHost(player, plr.name);
+            player.sendMessage(r.message)
+        })
+    } catch (e) {
+        console.warn(e);
+    }
 })
