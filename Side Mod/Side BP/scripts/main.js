@@ -1,17 +1,20 @@
 import { ISLAND_SLOTS } from "./core/islandManager";
 import { getData, setData } from "./core/database";
+import { system } from "@minecraft/server";
 
-for (const slot of ISLAND_SLOTS) {
-    if (!getData(`island:${slot.id}`)) {
-        setData(`island:${slot.id}`, {
-            id: slot.id,
-            name: slot.id,
-            host: null,
-            members: [],
-            status: null,
-            pendingRequests: [],
-            maxMembers: 5,
-            createAt: null
-        });
+system.run(() => {
+    for (const slot of ISLAND_SLOTS) {
+        if (!getData(`island:${slot.id}`)) {
+            setData(`island:${slot.id}`, {
+                id: slot.id,
+                name: slot.id,
+                host: null,
+                members: [],
+                status: null,
+                pendingRequests: [],
+                maxMembers: 5,
+                createAt: null
+            });
+        }
     }
-}
+})
