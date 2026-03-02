@@ -2,6 +2,34 @@ import { Player } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+/**
+ * 
+ * @param {Player} player 
+ * @param {string} targetName 
+ */
+export function transferHost(player, targetName) {
+    const playerData = getPlayerData(player.name);
+    if (!playerData.currentIsland) return { success: false, message: 'You are not in an island' };
+    if (playerData.role !== 'host') return { success: false, message: 'You are not the island host' };
+    if (player.name === targetName) return { success: false, message: 'You cannot transfer host to yourself' };
+
+    const islandKey = `island:${playerData.currentIsland}`;
+    const island = getData(islandKey);
+    if (!island.members.includes(targetName)) return { success: false, message: 'Target is not a member of the island' };
+
+    island.host = targetName;
+    setData(islandKey, island);
+
+    playerData.role = 'member';
+    savePlayerData(player.name, playerData);
+
+    const targetData = getPlayerData(targetName);
+    targetData.role = 'host';
+    savePlayerData(targetName, targetData);
+
+    return { success: true, message: `You transferred host to ${targetName}` };
+}
+
 /** @param {Player} player */
 export function leaveIsland(player) {
     const playerData = getPlayerData(player.name);

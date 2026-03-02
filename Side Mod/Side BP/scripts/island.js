@@ -1,7 +1,7 @@
 import { ISLAND_SLOTS } from "./core/islandManager";
 import { getData, setData } from "./core/database";
-import { CommandPermissionLevel, Player, system } from "@minecraft/server";
-import { takeIslandAsHost, leaveIsland } from "./core/islandManager";
+import { CommandPermissionLevel, CustomCommandParamType, Player, system } from "@minecraft/server";
+import { takeIslandAsHost, leaveIsland, transferHost } from "./core/islandManager";
 
 system.run(() => {
     for (const slot of ISLAND_SLOTS) {
@@ -41,6 +41,23 @@ system.beforeEvents.startup.subscribe(data => {
         const player = origin.sourceEntity;
         if (!(player instanceof Player)) return;
         const r = leaveIsland(player);
+        player.sendMessage(r.message)
+    })
+    data.customCommandRegistry.registerCommand({
+        name: 'as:transfer',
+        description: 'Transfer host to another player',
+        cheatsRequired: true,
+        permissionLevel: CommandPermissionLevel.Any,
+        mandatoryParameters: [
+            {
+                name: 'player',
+                type: CustomCommandParamType.PlayerSelector
+            }
+        ]
+    }, (origin, plr) => {
+        const player = origin.sourceEntity;
+        if (!(player instanceof Player)) return;
+        const r = transferHost(player, plr.name);
         player.sendMessage(r.message)
     })
 })
