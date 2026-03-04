@@ -2,6 +2,26 @@ import { Player } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+
+export function rejectPlayer(islandId, playerName) {
+    const islandKey = `island:${islandId}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: 'Island not found' };
+    if (island.host !== host.name) return { success: false, message: 'You are not the island host' };
+    if (!island.pendingRequests.includes(playerName)) return { success: false, message: 'Player is not applying to this island' };
+
+    island.pendingRequests = island.pendingRequests.filter(p => p !== playerName);
+    setData(islandKey, island);
+
+    const playerData = getPlayerData(playerName);
+    if (!playerData) return { success: false, message: 'Player data corrupted' };
+    playerData.appliedTo = playerData.appliedTo.filter(p => p !== island.id);
+    playerData.incomingApproval = playerData.incomingApproval.filter(p => p !== island.id);
+    savePlayerData(playerName, playerData);
+
+    return { success: true, message: 'You rejected the player' };
+}
+
 export function cancelApply(player, islandId) {
     const playerData = getPlayerData(player.name);
     if (!playerData.appliedTo.includes(islandId)) return { success: false, message: 'You have not applied to this island' };

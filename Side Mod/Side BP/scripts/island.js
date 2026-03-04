@@ -14,13 +14,12 @@ world.afterEvents.playerSpawn.subscribe(event => {
     }
 });
 
-
-system.run(() => {
+world.afterEvents.worldLoad.subscribe(() => {
     for (const slot of ISLAND_SLOTS) {
         if (!getData(`island:${slot.id}`)) {
             setData(`island:${slot.id}`, {
                 id: slot.id,
-                name: slot.id,
+                name: `Island ${slot.id.replace('island', '')}`,
                 host: null,
                 members: [],
                 status: null,
