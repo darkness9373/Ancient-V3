@@ -2,6 +2,18 @@ import { ISLAND_SLOTS } from "./core/islandManager";
 import { getData, setData } from "./core/database";
 import { CommandPermissionLevel, CustomCommandParamType, Player, system } from "@minecraft/server";
 import { takeIslandAsHost, leaveIsland, transferHost } from "./core/islandManager";
+import { world } from "@minecraft/server";
+import { getPlayerData, savePlayerData, normalizePlayerState } from "./core/playerManager";
+
+world.afterEvents.playerSpawn.subscribe(event => {
+    if (event.initialSpawn) {
+        const player = event.player;
+        let data = getPlayerData(player.name);
+        data = normalizePlayerState(data);
+        savePlayerData(player.name, data);
+    }
+});
+
 
 system.run(() => {
     for (const slot of ISLAND_SLOTS) {
@@ -18,46 +30,4 @@ system.run(() => {
             });
         }
     }
-})
-
-system.beforeEvents.startup.subscribe(data => {
-    data.customCommandRegistry.registerCommand({
-        name: 'as:island',
-        description: 'Open the island List',
-        cheatsRequired: true,
-        permissionLevel: CommandPermissionLevel.Any
-    }, (origin) => {
-        const player = origin.sourceEntity;
-        if (!(player instanceof Player)) return;
-        const r = takeIslandAsHost(player, 'island1');
-        player.sendMessage(r.message)
-    })
-    data.customCommandRegistry.registerCommand({
-        name: 'as:leave',
-        description: 'Leave the island',
-        cheatsRequired: true,
-        permissionLevel: CommandPermissionLevel.Any
-    }, (origin) => {
-        const player = origin.sourceEntity;
-        if (!(player instanceof Player)) return;
-        const r = leaveIsland(player);
-        player.sendMessage(r.message)
-    })
-    data.customCommandRegistry.registerCommand({
-        name: 'as:transfer',
-        description: 'Transfer host to another player',
-        cheatsRequired: true,
-        permissionLevel: CommandPermissionLevel.Any,
-        mandatoryParameters: [
-            {
-                name: 'player',
-                type: CustomCommandParamType.PlayerSelector
-            }
-        ]
-    }, (origin, plr) => {
-        const player = origin.sourceEntity;
-        if (!(player instanceof Player)) return;
-        const r = transferHost(player, plr[0].name);
-        player.sendMessage(r.message)
-    })
 })
