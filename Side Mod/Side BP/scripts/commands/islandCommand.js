@@ -1,4 +1,4 @@
-import { Player, system } from "@minecraft/server";
+import { Player, system, CommandPermissionLevel, world } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { ISLAND_SLOTS, getIsland, takeIslandAsHost, applyToIsland, transferHost, leaveIsland, acceptPlayer, rejectPlayer } from "../core/islandManager";
 import { getPlayerData } from "../core/playerManager";
@@ -43,6 +43,7 @@ function openMyIsland(player) {
         `§7Status: §o${island.status ?? 'active'}`
     )
     form.button('Leave Island')
+    form.button('Member List')
     if (island.host === player.name) {
         form.button('Change Island Name')
         form.button('Transfer Host')
@@ -62,18 +63,38 @@ function handleMyIslandSelection(player, selection, island) {
         player.sendMessage(result.message);
         return;
     }
+    if (selection === 1) {
+        openMemberList(player, island);
+        return;
+    }
     if (!isHost) return;
     switch (selection) {
-        case 1:
+        case 2:
             openChangeIslandName(player, island);
             break;
-        case 2:
+        case 3:
             openTransferHost(player, island);
             break;
-        case 3:
+        case 4:
             openHostApprovalMenu(player, island);
             break;
     }
+}
+
+/** @param {Player} player */
+function openMemberList(player, island) {
+    const form = new ActionFormData()
+    form.title('Member List')
+    let bodyText = '§bHost: ' + island.host + '\n\n'
+    for (const member of island.members) {
+        const online = world.getPlayers().find(p => p.name === member)
+        const status = online ? '§aOnline' : '§cOffline'
+        bodyText += `§b${member}: ${status}\n`
+    }
+    form.body(bodyText)
+    form.show(player).then(r => {
+        if (r.canceled) return;
+    })
 }
 
 /** @param {Player} player */
