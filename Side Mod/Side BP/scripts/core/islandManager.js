@@ -2,6 +2,28 @@ import { Player, world } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+/**
+ * @param {Player} host
+ * @param {string} targetName
+ */
+export function invitePlayer(host, targetName) {
+    const hostData = getPlayerData(host.name);
+    if (!hostData.currentIsland) return { success: false, message: '§c[!] You are not in an island' };
+    if (hostData.role !== 'host') return { success: false, message: '§c[!] You are not the island host' };
+    const islandKey = `island:${hostData.currentIsland}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (island.members.includes(targetName)) return { success: false, message: '§c[!] Target is already a member of the island' };
+    if (island.members.length >= island.maxMembers) return { success: false, message: '§c[!] Island is full' };
+    const targetData = getPlayerData(targetName);
+    if (targetData.currentIsland) return { success: false, message: '§c[!] Target is already in an island' };
+    if (targetData.incomingApproval.includes(island.id)) return { success: false, message: '§c[!] Target is already applying to this island' };
+    targetData.incomingApproval.push(island.id);
+    savePlayerData(targetName, targetData);
+
+    return { success: true, message: `§a[!] You invited §e${targetName}` };
+}
+
 export function kickMember(player, targetName) {
     const playerData = getPlayerData(player.name);
     if (!playerData.currentIsland) return { success: false, message: '§c[!] You are not in an island' };
