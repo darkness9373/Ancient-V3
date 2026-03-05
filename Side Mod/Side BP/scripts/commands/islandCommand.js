@@ -1,6 +1,6 @@
 import { Player, system, CommandPermissionLevel, world } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { ISLAND_SLOTS, getIsland, takeIslandAsHost, applyToIsland, transferHost, leaveIsland, acceptPlayer, rejectPlayer } from "../core/islandManager";
+import { ISLAND_SLOTS, getIsland, takeIslandAsHost, applyToIsland, transferHost, leaveIsland, acceptPlayer, rejectPlayer, kickMember } from "../core/islandManager";
 import { getPlayerData } from "../core/playerManager";
 import { setData } from "../core/database";
 
@@ -83,17 +83,48 @@ function handleMyIslandSelection(player, selection, island) {
 
 /** @param {Player} player */
 function openMemberList(player, island) {
+    const isHost = island.host === player.name;
     const form = new ActionFormData()
     form.title('Member List')
-    let bodyText = '§bHost: ' + island.host + '\n\n'
+    form.body('§bHost: ' + island.host + '\n')
+    const memberList = []
     for (const member of island.members) {
-        const online = world.getPlayers().find(p => p.name === member)
-        const status = online ? '§aOnline' : '§cOffline'
-        bodyText += `§b${member}: ${status}\n`
+        const status = world.getPlayers().find(p => p.name === member) ? '§aOnline' : '§cOffline';
+        if (isHost && member !== player.name) {
+            form.button(`${member}\n${status}`)
+            memberList.push(member)
+        }
     }
-    form.body(bodyText)
+    if (!isHost) {
+        let bodyText = `§bHost: ${island.host}\n\n`
+        for (const member of island.members) {
+            const status = world.getPlayers().find(p => p.name === member) ? '§aOnline' : '§cOffline';
+            bodyText += `§b${member} - ${status}\n`
+        }
+        form.body(bodyText)
+        form.show(player)
+        return;
+    }
     form.show(player).then(r => {
         if (r.canceled) return;
+        const target = memberList[r.selection];
+        openKickConfirm(player, island, target);
+    })
+}
+
+/** @param {Player} player */
+function openKickConfirm(player, island, targetName) {
+    const form = new ActionFormData()
+    form.title(`Kick ${targetName}`)
+    form.body(`Are you sure you want to kick ${targetName}?`)
+    form.button('Kick')
+    form.button('Cancel')
+    form.show(player).then(r => {
+        if (r.canceled) return;
+        if (r.selection === 0) {
+            const result = kickMember(player, targetName)
+            player.sendMessage(result.message);
+        }
     })
 }
 

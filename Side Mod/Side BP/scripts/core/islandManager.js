@@ -2,6 +2,27 @@ import { Player } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+export function kickMember(player, targetName) {
+    const playerData = getPlayerData(player.name);
+    if (!playerData.currentIsland) return { success: false, message: 'You are not in an island' };
+    const islandKey = `island:${playerData.currentIsland}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: 'Island not found' };
+    if (island.host !== player.name) return { success: false, message: 'You are not the island host' };
+    if (!island.members.includes(targetName)) return { success: false, message: 'Target is not a member of the island' };
+    island.members = island.members.filter(m => m !== targetName);
+    setData(islandKey, island);
+
+    const targetData = getPlayerData(targetName);
+    targetData.currentIsland = null;
+    targetData.role = null;
+    savePlayerData(targetName, targetData);
+
+    const onlineTarget = world.getPlayers().find(p => p.name === targetName);
+    if (onlineTarget) onlineTarget.sendMessage(`You were kicked from ${island.name}`);
+
+    return { success: true, message: `You kicked ${targetName}` };
+}
 
 export function rejectPlayer(islandId, playerName) {
     const islandKey = `island:${islandId}`;
