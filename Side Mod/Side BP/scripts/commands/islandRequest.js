@@ -20,13 +20,17 @@ system.beforeEvents.startup.subscribe(data => {
 /** @param {Player} player */
 function openMyRequest(player) {
     const playerData = getPlayerData(player.name);
-    if (!playerData.appliedTo.length && !playerData.incomingApproval.length) return player.sendMessage('You have no island request sent');
+    const allRequest = new Set([
+        ...playerData.appliedTo,
+        ...playerData.incomingApproval
+    ])
+    if (allRequest.size === 0) return player.sendMessage('You have no request');
 
     const form = new ActionFormData()
     form.title('My Request')
     form.body('Your request list')
     const requestList = []
-    for (const islandId of playerData.appliedTo) {
+    for (const islandId of allRequest) {
         const island = getIsland(`island:${islandId}`);
         if (!island) continue;
         let status = '§ePending'
