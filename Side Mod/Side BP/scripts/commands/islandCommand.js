@@ -170,13 +170,15 @@ function openTransferHost(player, island) {
     const form = new ActionFormData()
     form.title('Transfer Host')
     form.body('Select a new host')
+    const memberList = []
     for (const member of island.members) {
         if (member === island.host) continue;
         form.button(member)
+        memberList.push(member)
     }
     form.show(player).then(r => {
         if (r.canceled) return;
-        const target = island.members[r.selection];
+        const target = memberList[r.selection];
         const result = transferHost(player, target);
         player.sendMessage(result.message);
     })
