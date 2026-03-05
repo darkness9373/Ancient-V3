@@ -24,7 +24,7 @@ function openMyRequest(player) {
         ...playerData.appliedTo,
         ...playerData.incomingApproval
     ])
-    if (allRequest.size === 0) return player.sendMessage('You have no request');
+    if (allRequest.size === 0) return player.sendMessage('§c[!] You have no request yet');
 
     const form = new ActionFormData()
     form.title('My Request')
@@ -49,17 +49,17 @@ function openMyRequest(player) {
 function openRequestActionMenu(player, islandId) {
     const playerData = getPlayerData(player.name);
     const island = getIsland(`island:${islandId}`);
-    if (!island) return player.sendMessage('Island not found');
+    if (!island) return player.sendMessage('§c[!] Island not found');
 
     const form = new ActionFormData()
     form.title(island.name)
     const isApproved = playerData.incomingApproval.includes(islandId);
     if (isApproved) {
-        form.body('You have already approved this request')
-        form.button('Join Island')
+        form.body('Your request has been approved')
+        form.button('§aJoin Island')
     } else {
         form.body('Waiting for approval')
-        form.button('Cancel Request')
+        form.button('§cCancel Request')
     }
     form.show(player).then(r => {
         if (r.canceled) return;

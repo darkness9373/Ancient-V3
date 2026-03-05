@@ -42,9 +42,10 @@ function openMyIsland(player) {
         `§7Members: §o${island.members.length}/${island.maxMembers}\n` +
         `§7Status: §o${island.status ?? 'active'}`
     )
-    form.button('Leave Island')
-    form.button('Member List')
+    form.button('§cLeave Island')
+    form.button('§gMember List')
     if (island.host === player.name) {
+        form.divider()
         form.button('Change Island Name')
         form.button('Transfer Host')
         form.button('Approval Requests')
@@ -116,7 +117,7 @@ function openMemberList(player, island) {
 function openKickConfirm(player, island, targetName) {
     const form = new ActionFormData()
     form.title(`Kick ${targetName}`)
-    form.body(`Are you sure you want to kick ${targetName}?`)
+    form.body(`Are you sure you want to kick §e${targetName}§r?`)
     form.button('Kick')
     form.button('Cancel')
     form.show(player).then(r => {
@@ -130,11 +131,11 @@ function openKickConfirm(player, island, targetName) {
 
 /** @param {Player} player */
 function openHostApprovalMenu(player, island) {
-    if (island.pendingRequests.length === 0) return player.sendMessage('No pending requests');
+    if (island.pendingRequests.length === 0) return player.sendMessage('§c[!] No pending requests');
 
     const form = new ActionFormData()
     form.title('Host Approval Requests')
-    form.body('select player')
+    form.body('Select a player you want to approve\n')
     for (const name of island.pendingRequests) {
         form.button(name)
     }
@@ -149,9 +150,9 @@ function openHostApprovalMenu(player, island) {
 function openApprovalActionMenu(player, island, targetName) {
     const form = new ActionFormData()
     form.title('Host Approval Actions')
-    form.body(`Select an action for ${targetName}`)
-    form.button('Accept')
-    form.button('Reject')
+    form.body(`Select an action for §e${targetName}§r`)
+    form.button('§aAccept')
+    form.button('§cReject')
     form.show(player).then(r => {
         if (r.canceled) return;
         const action = r.selection;
@@ -169,7 +170,7 @@ function openApprovalActionMenu(player, island, targetName) {
 function openTransferHost(player, island) {
     const form = new ActionFormData()
     form.title('Transfer Host')
-    form.body('Select a new host')
+    form.body('Select a new host you want to transfer\n')
     const memberList = []
     for (const member of island.members) {
         if (member === island.host) continue;
@@ -193,10 +194,10 @@ function openChangeIslandName(player, island) {
     form.show(player).then(result => {
         if (result.canceled) return;
         const newName = result.formValues[0].trim();
-        if (!newName || newName.length < 3) return player.sendMessage('Island name must be at least 3 characters');
+        if (!newName || newName.length < 3) return player.sendMessage('§c[!] Island name must be at least 3 characters');
         island.name = newName;
         setData(islandKey, island);
-        player.sendMessage(`Island name changed to ${newName}`);
+        player.sendMessage(`§a[!] Island name changed to ${newName}`);
     })
 }
 
@@ -204,13 +205,13 @@ function openChangeIslandName(player, island) {
 function openIslandList(player) {
     const form = new ActionFormData()
     form.title("Island List")
-    form.body('select island')
+    form.body('Select an island you want to go\n')
     for (const slot of ISLAND_SLOTS) {
         const islandKey = `island:${slot.id}`
         const island = getIsland(islandKey)
         let buttonText = island.name ?? island.id
         if (island.host) {
-            buttonText += `\n§o§bHost: ${island.host}`
+            buttonText += `\n§o§b[ ${island.host} ]`
         } else if (island.host === null && island.status === 'abandoned') {
             buttonText += `\n§o§cAbandoned`
         } else if (island.host === null && island.status === null) {
@@ -230,16 +231,16 @@ function openIslandList(player) {
 function handleIslandSelection(player, islandId) {
     const islandKey = `island:${islandId}`;
     const island = getIsland(islandKey);
-    if (!island) return player.sendMessage('Island not found');
-    if (island.host === null && island.status === 'abandoned') return player.sendMessage('Island is abandoned');
+    if (!island) return player.sendMessage('§c[!] Island not found');
+    if (island.host === null && island.status === 'abandoned') return player.sendMessage('§c[!] Island is abandoned');
 
     const playerData = getPlayerData(player.name);
-    if (playerData.currentIsland) return player.sendMessage('You are already in an island');
+    if (playerData.currentIsland) return player.sendMessage('§c[!] You are already in an island');
     if (island.host === null && island.status === null) {
         const result = takeIslandAsHost(player, islandId);
         return player.sendMessage(result.message);
     }
-    if (playerData.appliedTo.includes(islandId)) return player.sendMessage('You have already applied to this island');
+    if (playerData.appliedTo.includes(islandId)) return player.sendMessage('§e[!] You have already applied to this island');
 
     const result = applyToIsland(player, islandId);
     player.sendMessage(result.message);

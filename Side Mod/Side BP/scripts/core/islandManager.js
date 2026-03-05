@@ -1,15 +1,15 @@
-import { Player } from "@minecraft/server";
+import { Player, world } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
 export function kickMember(player, targetName) {
     const playerData = getPlayerData(player.name);
-    if (!playerData.currentIsland) return { success: false, message: 'You are not in an island' };
+    if (!playerData.currentIsland) return { success: false, message: '§c[!] You are not in an island' };
     const islandKey = `island:${playerData.currentIsland}`;
     const island = getData(islandKey);
-    if (!island) return { success: false, message: 'Island not found' };
-    if (island.host !== player.name) return { success: false, message: 'You are not the island host' };
-    if (!island.members.includes(targetName)) return { success: false, message: 'Target is not a member of the island' };
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (island.host !== player.name) return { success: false, message: '§c[!] You are not the island host' };
+    if (!island.members.includes(targetName)) return { success: false, message: '§c[!] Target is not a member of the island' };
     island.members = island.members.filter(m => m !== targetName);
     setData(islandKey, island);
 
@@ -19,36 +19,36 @@ export function kickMember(player, targetName) {
     savePlayerData(targetName, targetData);
 
     const onlineTarget = world.getPlayers().find(p => p.name === targetName);
-    if (onlineTarget) onlineTarget.sendMessage(`You were kicked from ${island.name}`);
+    if (onlineTarget) onlineTarget.sendMessage(`§c[!] You were kicked from §e${island.name}`);
 
-    return { success: true, message: `You kicked ${targetName}` };
+    return { success: true, message: `§a[!] You kicked §e${targetName}` };
 }
 
 export function rejectPlayer(islandId, playerName) {
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);
-    if (!island) return { success: false, message: 'Island not found' };
-    if (island.host !== host.name) return { success: false, message: 'You are not the island host' };
-    if (!island.pendingRequests.includes(playerName)) return { success: false, message: 'Player is not applying to this island' };
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (island.host !== host.name) return { success: false, message: '§c[!] You are not the island host' };
+    if (!island.pendingRequests.includes(playerName)) return { success: false, message: '§c[!] Player is not applying to this island' };
 
     island.pendingRequests = island.pendingRequests.filter(p => p !== playerName);
     setData(islandKey, island);
 
     const playerData = getPlayerData(playerName);
-    if (!playerData) return { success: false, message: 'Player data corrupted' };
+    if (!playerData) return { success: false, message: '§c[!] Player data corrupted' };
     playerData.appliedTo = playerData.appliedTo.filter(p => p !== island.id);
     playerData.incomingApproval = playerData.incomingApproval.filter(p => p !== island.id);
     savePlayerData(playerName, playerData);
 
-    return { success: true, message: 'You rejected the player' };
+    return { success: true, message: '§a[!] You rejected the player' };
 }
 
 export function cancelApply(player, islandId) {
     const playerData = getPlayerData(player.name);
-    if (!playerData.appliedTo.includes(islandId)) return { success: false, message: 'You have not applied to this island' };
+    if (!playerData.appliedTo.includes(islandId)) return { success: false, message: '§c[!] You have not applied to this island' };
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);
-    if (!island) return { success: false, message: 'Island not found' };
+    if (!island) return { success: false, message: '§c[!] Island not found' };
 
     // Remove from Island Pending Requests
     island.pendingRequests = island.pendingRequests.filter(p => p !== player.name);
@@ -59,7 +59,7 @@ export function cancelApply(player, islandId) {
     playerData.incomingApproval = playerData.incomingApproval.filter(p => p !== islandId);
     savePlayerData(player.name, playerData);
 
-    return { success: true, message: 'You cancelled your application' };
+    return { success: true, message: '§c[!] You cancelled your application' };
 }
 
 /**
@@ -71,15 +71,15 @@ export function finalizeJoin(player, islandId) {
     const playerData = getPlayerData(player.name);
 
     // Validate Player State
-    if (playerData.currentIsland !== null) return { success: false, message: 'You are already in an island' };
-    if (!playerData.incomingApproval.includes(islandId)) return { success: false, message: 'You are not applying to this island' };
+    if (playerData.currentIsland !== null) return { success: false, message: '§c[!] You are already in an island' };
+    if (!playerData.incomingApproval.includes(islandId)) return { success: false, message: '§c[!] You are not applying to this island' };
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);
-    if (!island) return { success: false, message: 'Island not found' };
-    if (island.status !== 'active' && island.host !== null) return { success: false, message: 'Island is not available' };
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (island.status !== 'active' && island.host !== null) return { success: false, message: '§c[!] Island is not available' };
 
     // Cek Full Island
-    if (island.members.length >= island.maxMembers) return { success: false, message: 'Island is full' };
+    if (island.members.length >= island.maxMembers) return { success: false, message: '§c[!] Island is full' };
 
     // Join Island
     island.members.push(player.name);
@@ -93,27 +93,27 @@ export function finalizeJoin(player, islandId) {
     playerData.incomingApproval = [];
     savePlayerData(player.name, playerData);
 
-    return { success: true, message: `You joined ${island.name}` };
+    return { success: true, message: `§a[!] You joined §e${island.name}` };
 }
 
 export function acceptPlayer(islandId, playerName) {
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);
-    if (!island) return { success: false, message: 'Island not found' };
+    if (!island) return { success: false, message: '§c[!] Island not found' };
 
     // Validate
-    if (!island.pendingRequests.includes(playerName)) return { success: false, message: 'Player is not applying to this island' };
+    if (!island.pendingRequests.includes(playerName)) return { success: false, message: '§c[!] Player is not applying to this island' };
     const playerData = getPlayerData(playerName);
     if (playerData.currentIsland !== null) {
         island.pendingRequests = island.pendingRequests.filter(p => p !== playerName);
         setData(islandKey, island);
         playerData.appliedTo = playerData.appliedTo.filter(p => p !== islandId);
         savePlayerData(playerName, playerData);
-        return { success: false, message: 'Player already joined another island' };
+        return { success: false, message: '§c[!] Player already joined another island' };
     }
 
     // Cek Full Island
-    if (island.members.length >= island.maxMembers) return { success: false, message: 'Island is full' };
+    if (island.members.length >= island.maxMembers) return { success: false, message: '§c[!] Island is full' };
 
     // Remove from Pending Requests
     island.pendingRequests = island.pendingRequests.filter(p => p !== playerName);
@@ -124,7 +124,7 @@ export function acceptPlayer(islandId, playerName) {
     playerData.appliedTo = playerData.appliedTo.filter(p => p !== islandId);
     savePlayerData(playerName, playerData);
 
-    return { success: true, message: `You accepted ${island.name}` };
+    return { success: true, message: `§a[!] You accepted §e${island.name}` };
 }
 
 /**
@@ -134,14 +134,14 @@ export function acceptPlayer(islandId, playerName) {
  */
 export function applyToIsland(player, islandId) {
     const playerData = getPlayerData(player.name);
-    if (playerData.currentIsland) return { success: false, message: 'You are already in an island' };
+    if (playerData.currentIsland) return { success: false, message: '§c[!] You are already in an island' };
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);
-    if (!island) return { success: false, message: 'Island not found' };
-    if (island.status === 'abandoned') return { success: false, message: 'Island is abandoned' };
-    if (island.host === null) return { success: false, message: 'Island is not taken' };
-    if (island.members.length >= island.maxMembers) return { success: false, message: 'Island is full' };
-    if (playerData.appliedTo.includes(islandId)) return { success: false, message: 'You have already applied to this island' };
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (island.status === 'abandoned') return { success: false, message: '§c[!] Island is abandoned' };
+    if (island.host === null) return { success: false, message: '§c[!] Island is not taken' };
+    if (island.members.length >= island.maxMembers) return { success: false, message: '§c[!] Island is full' };
+    if (playerData.appliedTo.includes(islandId)) return { success: false, message: '§c[!] You have already applied to this island' };
 
     island.pendingRequests.push(player.name);
     setData(islandKey, island);
@@ -149,7 +149,7 @@ export function applyToIsland(player, islandId) {
     playerData.appliedTo.push(islandId);
     savePlayerData(player.name, playerData);
 
-    return { success: true, message: `You applied to ${island.name}` };
+    return { success: true, message: `§a[!] You applied to §e${island.name}` };
 }
 
 /**
@@ -159,13 +159,13 @@ export function applyToIsland(player, islandId) {
  */
 export function transferHost(player, targetName) {
     const playerData = getPlayerData(player.name);
-    if (!playerData.currentIsland) return { success: false, message: 'You are not in an island' };
-    if (playerData.role !== 'host') return { success: false, message: 'You are not the island host' };
-    if (player.name === targetName) return { success: false, message: 'You cannot transfer host to yourself' };
+    if (!playerData.currentIsland) return { success: false, message: '§c[!] You are not in an island' };
+    if (playerData.role !== 'host') return { success: false, message: '§c[!] You are not the island host' };
+    if (player.name === targetName) return { success: false, message: '§c[!] You cannot transfer host to yourself' };
 
     const islandKey = `island:${playerData.currentIsland}`;
     const island = getData(islandKey);
-    if (!island.members.includes(targetName)) return { success: false, message: 'Target is not a member of the island' };
+    if (!island.members.includes(targetName)) return { success: false, message: '§c[!] Target is not a member of the island' };
 
     island.host = targetName;
     setData(islandKey, island);
@@ -177,21 +177,21 @@ export function transferHost(player, targetName) {
     targetData.role = 'host';
     savePlayerData(targetName, targetData);
 
-    return { success: true, message: `You transferred host to ${targetName}` };
+    return { success: true, message: `§a[!] You transferred host to §e${targetName}` };
 }
 
 /** @param {Player} player */
 export function leaveIsland(player) {
     const playerData = getPlayerData(player.name);
-    if (!playerData.currentIsland) return { success: false, message: 'You are not in an island' };
+    if (!playerData.currentIsland) return { success: false, message: '§c[!] You are not in an island' };
     const islandKey = `island:${playerData.currentIsland}`;
     const island = getData(islandKey);
-    if (!island) return { success: false, message: 'Island data corrupted' };
+    if (!island) return { success: false, message: '§c[!] Island data corrupted' };
 
     // HOST
     if (playerData.role === 'host') {
         if (island.members.length > 1) {
-            return { success: false, message: 'You cannot leave the island because you are the only member' };
+            return { success: false, message: '§c[!] You cannot leave the island, transfer host to another player first' };
         }
         island.host = null;
         island.members = [];
@@ -202,7 +202,7 @@ export function leaveIsland(player) {
         playerData.role = null;
         savePlayerData(player.name, playerData);
 
-        return { success: true, message: 'Your island was abandoned' };
+        return { success: true, message: '§c[!] Your island was abandoned' };
     }
 
     // MEMBER
@@ -212,7 +212,7 @@ export function leaveIsland(player) {
     playerData.role = null;
     savePlayerData(player.name, playerData);
 
-    return { success: true, message: 'You left the island' };
+    return { success: true, message: '§a[!] You left the island' };
 }
 
 /**
@@ -223,10 +223,10 @@ export function leaveIsland(player) {
 export function takeIslandAsHost(player, islandId) {
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);
-    if (!island) return { success: false, message: 'Island not found' };
-    if (island.host !== null || island.status !== null) return { success: false, message: 'Island is already taken' };
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (island.host !== null || island.status !== null) return { success: false, message: '§c[!] Island is already taken' };
     const playerData = getPlayerData(player.name);
-    if (playerData.currentIsland !== null) return { success: false, message: 'You are already in an island' };
+    if (playerData.currentIsland !== null) return { success: false, message: '§c[!] You are already in an island' };
 
     island.host = player.name;
     island.members = [player.name];
@@ -240,7 +240,7 @@ export function takeIslandAsHost(player, islandId) {
     playerData.incomingApproval = [];
     savePlayerData(player.name, playerData);
 
-    return { success: true, message: 'Island taken as host' };
+    return { success: true, message: '§a[!] Island taken as host' };
 }
 
 export function getIsland(id) {
