@@ -2,6 +2,53 @@ import { Player, world } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+/** @param {Player} player */
+export function teleportToIsland(player) {
+    const playerData = getPlayerData(player.name);
+    if (!playerData.currentIsland) return { success: false, message: '§c[!] You are not in an island' };
+    const islandId = playerData.currentIsland;
+    const slot = ISLAND_SLOTS.find(s => s.id === islandId);
+    if (!slot) return { success: false, message: '§c[!] Island not found' };
+    const dimension = world.getDimension('overworld');
+    const base = slot.pos;
+    let safePos = null;
+    for (let dx = -3; dx <= 3; dx++) {
+        for (let dz = -3; dz <= 3; dz++) {
+            const x = base.x + dx;
+            const z = base.z + dz;
+            for (let y = base.y + 5; y >= base.y - 5; y--) {
+                const block = dimension.getBlock({ x, y, z });
+                const blockAbove = dimension.getBlock({ x, y: y + 1, z });
+                const blockBelow = dimension.getBlock({ x, y: y - 1, z });
+                if (!block || !blockAbove || !blockBelow) continue;
+                const isAir =
+                    block.typeId === 'minecraft:air' &&
+                    blockAbove.typeId === 'minecraft:air';
+                const safeGround =
+                    blockBelow.typeId !== 'minecraft:air' &&
+                    blockBelow.typeId !== 'minecraft:lava';
+                if (isAir && safeGround) {
+                    safePos = { x, y, z };
+                    break;
+                }
+            }
+            if (safePos) break;
+        }
+        if (safePos) break;
+    }
+    if (!safePos) {
+        safePos = {
+            x: base.x + 0.5,
+            y: base.y + 2,
+            z: base.z + 0.5
+        }
+    }
+    player.tryTeleport(safePos, { dimension: dimension });
+    player.addEffect('resistance', 100, { showParticles: true });
+
+    return { success: true, message: '§a[!] You teleported to the island' };
+}
+
 /**
  * @param {Player} host
  * @param {string} targetName

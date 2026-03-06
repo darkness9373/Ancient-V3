@@ -1,3 +1,3 @@
-import './islandCommand'
-import './islandRequest'
-import './islandInvite'
+import './newland'
+import './myrequest'
+import './inviteland'

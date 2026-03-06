@@ -1,22 +1,13 @@
-import { Player, system, CommandPermissionLevel, world } from "@minecraft/server";
+import { system, Player, CommandPermissionLevel } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { ISLAND_SLOTS, getIsland, takeIslandAsHost, applyToIsland, transferHost, leaveIsland, acceptPlayer, rejectPlayer, kickMember } from "../core/islandManager";
+import { getIsland, ISLAND_SLOTS, teleportToIsland } from "../core/islandManager";
 import { getPlayerData } from "../core/playerManager";
+import { leaveIsland, kickMember, transferHost, acceptPlayer, rejectPlayer, teleportToIsland } from "../core/islandManager";
 import { setData } from "../core/database";
 
 system.beforeEvents.startup.subscribe(data => {
     data.customCommandRegistry.registerCommand({
-        name: 'as:newland',
-        description: "Acquire a new island or join another player's island",
-        cheatsRequired: true,
-        permissionLevel: CommandPermissionLevel.Any
-    }, (origin) => {
-        const player = origin.sourceEntity;
-        if (!(player instanceof Player)) return;
-        system.run(() => openIslandList(player))
-    })
-    data.customCommandRegistry.registerCommand({
-        name: 'as:myisland',
+        name: 'as:myland',
         description: "View your island",
         cheatsRequired: true,
         permissionLevel: CommandPermissionLevel.Any
@@ -44,6 +35,7 @@ function openMyIsland(player) {
     )
     form.button('§cLeave Island')
     form.button('§gMember List')
+    form.button('§eTeleport')
     if (island.host === player.name) {
         form.divider()
         form.button('Change Island Name')
@@ -68,15 +60,20 @@ function handleMyIslandSelection(player, selection, island) {
         openMemberList(player, island);
         return;
     }
+    if (selection === 2) {
+        const result = teleportToIsland(player);
+        player.sendMessage(result.message);
+        return;
+    }
     if (!isHost) return;
     switch (selection) {
-        case 2:
+        case 3:
             openChangeIslandName(player, island);
             break;
-        case 3:
+        case 4:
             openTransferHost(player, island);
             break;
-        case 4:
+        case 5:
             openHostApprovalMenu(player, island);
             break;
     }
@@ -199,49 +196,4 @@ function openChangeIslandName(player, island) {
         setData(islandKey, island);
         player.sendMessage(`§a[!] Island name changed to ${newName}`);
     })
-}
-
-/** @param {Player} player */
-function openIslandList(player) {
-    const form = new ActionFormData()
-    form.title("Island List")
-    form.body('Select an island you want to go\n')
-    for (const slot of ISLAND_SLOTS) {
-        const islandKey = `island:${slot.id}`
-        const island = getIsland(islandKey)
-        let buttonText = island.name ?? island.id
-        if (island.host) {
-            buttonText += `\n§o§b[ ${island.host} ]`
-        } else if (island.host === null && island.status === 'abandoned') {
-            buttonText += `\n§o§cAbandoned`
-        } else if (island.host === null && island.status === null) {
-            buttonText += `\n§oAvailable`
-        }
-        form.button(buttonText)
-    }
-    form.show(player).then(result => {
-        if (result.canceled) return;
-        const selectedSlot = ISLAND_SLOTS[result.selection]
-        // Run
-        handleIslandSelection(player, selectedSlot.id)
-    })
-}
-
-/** @param {Player} player */
-function handleIslandSelection(player, islandId) {
-    const islandKey = `island:${islandId}`;
-    const island = getIsland(islandKey);
-    if (!island) return player.sendMessage('§c[!] Island not found');
-    if (island.host === null && island.status === 'abandoned') return player.sendMessage('§c[!] Island is abandoned');
-
-    const playerData = getPlayerData(player.name);
-    if (playerData.currentIsland) return player.sendMessage('§c[!] You are already in an island');
-    if (island.host === null && island.status === null) {
-        const result = takeIslandAsHost(player, islandId);
-        return player.sendMessage(result.message);
-    }
-    if (playerData.appliedTo.includes(islandId)) return player.sendMessage('§e[!] You have already applied to this island');
-
-    const result = applyToIsland(player, islandId);
-    player.sendMessage(result.message);
 }

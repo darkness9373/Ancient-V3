@@ -1,6 +1,6 @@
 import { ModalFormData } from "@minecraft/server-ui";
 import { invitePlayer } from "../core/islandManager";
-import { CommandPermissionLevel, Player, system, System, world } from "@minecraft/server";
+import { CommandPermissionLevel, Player, system, world } from "@minecraft/server";
 
 system.beforeEvents.startup.subscribe(data => {
     data.customCommandRegistry.registerCommand({
