@@ -1,2 +1,2 @@
-import './water.obfuscated'
+import './water'
 import './islandProtection'
