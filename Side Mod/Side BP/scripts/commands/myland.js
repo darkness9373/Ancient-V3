@@ -1,6 +1,6 @@
-import { system, Player, CommandPermissionLevel } from "@minecraft/server";
+import { system, Player, CommandPermissionLevel, world } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { getIsland, ISLAND_SLOTS, teleportToIsland } from "../core/islandManager";
+import { getIsland } from "../core/islandManager";
 import { getPlayerData } from "../core/playerManager";
 import { leaveIsland, kickMember, transferHost, acceptPlayer, rejectPlayer, teleportToIsland } from "../core/islandManager";
 import { setData } from "../core/database";

@@ -1,6 +1,7 @@
 import './newland'
 import './myrequest'
 import './inviteland'
+import './myland'
 import './tpa'
 import './tpaccept'
 import './tpadeny'

@@ -18,7 +18,7 @@ system.beforeEvents.startup.subscribe(data => {
 /** @param {Player} player */
 function inviteForm(player) {
     const online = world.getPlayers().filter(p => p.name !== player.name);
-    const players = online.map(p => ({ name: p.name }));
+    const players = online.map(p => p.name);
     const form = new ModalFormData();
     form.title('Invite Player');
     form.dropdown('Select Player', players)

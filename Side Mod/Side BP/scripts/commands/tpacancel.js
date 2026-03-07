@@ -1,5 +1,5 @@
 import { CommandPermissionLevel, Player, system, world } from "@minecraft/server";
-import { cancelTPA } from "../core/tpaManager";
+import { cancelTPA, getOutgoingTPA } from "../core/tpaManager";
 
 system.beforeEvents.startup.subscribe(data => {
     data.customCommandRegistry.registerCommand({
@@ -23,7 +23,7 @@ function TPCancel(sender, targetName) {
 
 /** @param {Player} player */
 function commandTPCancel(player) {
-    const request = getIncomingTPA(player.name);
+    const request = getOutgoingTPA(player.name);
     if (request.length === 0) return player.sendMessage('§c[!] You have no request');
     if (request.length === 1) {
         const sender = request[0].sender;
