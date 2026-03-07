@@ -1,3 +1,4 @@
+import { world } from "@minecraft/server";
 import { getData, setData } from "./database";
 
 const EXPIRE_TIME = 60 * 1000;
@@ -59,4 +60,16 @@ export function getIncomingTPA(player) {
 
 export function getOutgoingTPA(player) {
     return getData(`tpasend:${player}`) ?? [];
+}
+
+
+export function teleportSender(senderName, receiver) {
+    const sender = world.getPlayers().find(p => p.name === senderName);
+    if (!sender) return receiver.sendMessage('§c[!] Player not online');
+    sender.tryTeleport(receiver.location, {
+        dimension: receiver.dimension
+    });
+
+    sender.sendMessage(`§a[!] You teleported to §e${receiver.name}`);
+    receiver.sendMessage(`§a[!] §e${sender.name} §ateleported to you`);
 }

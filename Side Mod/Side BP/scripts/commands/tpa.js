@@ -1,4 +1,4 @@
-import { system, Player, world } from "@minecraft/server";
+import { system, Player, world, CommandPermissionLevel } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
 import { sendTPA } from "../core/tpaManager";
 
@@ -6,6 +6,7 @@ system.beforeEvents.startup.subscribe(data => {
     data.customCommandRegistry.registerCommand({
         name: 'as:tpa',
         description: 'Request teleport to other player',
+        permissionLevel: CommandPermissionLevel.Any,
         cheatsRequired: true
     }, (origin) => {
         const player = origin.sourceEntity;
