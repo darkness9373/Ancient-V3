@@ -2,6 +2,21 @@ import { Player, world } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+export function reclaimIsland(islandId) {
+    const islandKey = `island:${islandId}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (island.members.length !== 0) return { success: false, message: '§c[!] Island is not empty' };
+
+    island.host = null;
+    island.members = [];
+    island.status = null;
+    island.pendingRequests = [];
+    setData(islandKey, island);
+
+    return { success: true, message: '§a[!] Island reclaimed' };
+}
+
 /** @param {Player} player */
 export function teleportToIsland(player) {
     const playerData = getPlayerData(player.name);
@@ -329,24 +344,24 @@ export function createIslandData(slot) {
 }
 
 export const ISLAND_SLOTS = [
-    { id: 'island1', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island2', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island3', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island4', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island5', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island6', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island7', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island8', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island9', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island10', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island11', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island12', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island13', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island14', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island15', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island16', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island17', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island18', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island19', pos: { x: 100, y: 100, z: 100 } },
-    { id: 'island20', pos: { x: 100, y: 100, z: 100 } }
+    { id: 'island1', pos: { x: 1000, z: 970 } },
+    { id: 'island2', pos: { x: -1000, z: -1030 } },
+    { id: 'island3', pos: { x: 2000, z: 1970 } },
+    { id: 'island4', pos: { x: -2000, z: -2030 } },
+    { id: 'island5', pos: { x: 3000, z: 2970 } },
+    { id: 'island6', pos: { x: -3000, z: -3030 } },
+    { id: 'island7', pos: { x: 4000, z: 3970 } },
+    { id: 'island8', pos: { x: -4000, z: -4030 } },
+    { id: 'island9', pos: { x: 5000, z: 4970 } },
+    { id: 'island10', pos: { x: -5000, z: -5030 } },
+    { id: 'island11', pos: { x: 6000, z: 5970 } },
+    { id: 'island12', pos: { x: -6000, z: -6030 } },
+    { id: 'island13', pos: { x: 7000, z: 6970 } },
+    { id: 'island14', pos: { x: -7000, z: -7030 } },
+    { id: 'island15', pos: { x: 8000, z: 7970 } },
+    { id: 'island16', pos: { x: -8000, z: -8030 } },
+    { id: 'island17', pos: { x: 9000, z: 8970 } },
+    { id: 'island18', pos: { x: -9000, z: -9030 } },
+    { id: 'island19', pos: { x: 10000, z: 9970 } },
+    { id: 'island20', pos: { x: -10000, z: -10030 } }
 ]
