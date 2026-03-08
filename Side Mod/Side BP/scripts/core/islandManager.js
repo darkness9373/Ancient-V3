@@ -6,7 +6,7 @@ export function reclaimIsland(islandId) {
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);
     if (!island) return { success: false, message: '§c[!] Island not found' };
-    if (island.members.length !== 0) return { success: false, message: '§c[!] Island is not empty' };
+    if (island.members && island.members.length !== 0) return { success: false, message: '§c[!] Island is not empty' };
 
     island.host = null;
     island.members = [];
@@ -31,7 +31,7 @@ export function teleportToIsland(player) {
         for (let dz = -3; dz <= 3; dz++) {
             const x = base.x + dx;
             const z = base.z + dz;
-            for (let y = base.y + 5; y >= base.y - 5; y--) {
+            for (let y = 109 + 5; y >= 109 - 5; y--) {
                 const block = dimension.getBlock({ x, y, z });
                 const blockAbove = dimension.getBlock({ x, y: y + 1, z });
                 const blockBelow = dimension.getBlock({ x, y: y - 1, z });
@@ -54,7 +54,7 @@ export function teleportToIsland(player) {
     if (!safePos) {
         safePos = {
             x: base.x + 0.5,
-            y: base.y + 2,
+            y: 109 + 2,
             z: base.z + 0.5
         }
     }
