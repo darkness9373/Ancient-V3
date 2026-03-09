@@ -6,17 +6,17 @@ const blockList = [
 ];
 
 system.runInterval(() => {
-    world.getPlayers().forEach(player => {
+    for (const player of world.getPlayers()) {
         const block = world.getDimension(player.dimension.id).getBlock(player.location);
-        if (!block) return;
+        if (!block) continue;
         if (blockList.includes(block.typeId)) {
-            player.applyDamage(1, { cause: 'drowning' });
             player.onScreenDisplay.setActionBar('§cThe water are poisonous');
+            player.applyDamage(1, { cause: 'drowning' });
         }
-    });
-    world.getDimension('overworld').getEntities({ type: 'minecraft:boat' }).forEach(boat => {
+    };
+    for (const boat of world.getDimension('overworld').getEntities({ type: 'minecraft:boat' })) {
         const age = boat.getDynamicProperty('age') ?? 0;
         boat.setDynamicProperty('age', age + 1);
         if (age >= 3) boat.remove();
-    });
+    }
 }, 20);
