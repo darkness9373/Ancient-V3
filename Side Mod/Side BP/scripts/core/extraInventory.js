@@ -1,4 +1,4 @@
-import { system, world } from "@minecraft/server";
+import { EquipmentSlot, system, world } from "@minecraft/server";
 
 const INVENITEM = 'as:inventory_item'
 const INVENENTITY = 'as:inventory'
@@ -6,7 +6,7 @@ const INVENENTITY = 'as:inventory'
 system.runInterval(() => {
     for (const player of world.getPlayers()) {
         const equip = player.getComponent('equippable');
-        const item = equip.getEquipment('MainHand');
+        const item = equip.getEquipment(EquipmentSlot.Mainhand);
         if (!item) continue;
         if (item.typeId === INVENITEM) {
             if (!player.hasTag('extra_inventory_active')) {

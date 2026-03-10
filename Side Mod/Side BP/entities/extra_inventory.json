@@ -1,55 +1,140 @@
 {
-    "format_version": "1.20.80",
+    "format_version": "1.21.0",
     "minecraft:entity": {
         "description": {
             "identifier": "as:inventory",
+            "is_spawnable": false,
             "is_summonable": true,
-            "is_spawnable": false
+            "is_experimental": false,
+            "properties": {
+                "as:open_inv": {
+                    "type": "bool",
+                    "default": false,
+                    "client_sync": true
+                }
+            }
         },
         "components": {
-            "minecraft:health": {
-                "value": 999,
-                "max": 999
-            },
-            "minecraft:inventory": {
-                "inventory_size": 27
-            },
             "minecraft:collision_box": {
                 "height": 0.5,
                 "width": 0.5
             },
-            "minecraft:physics": {
-                "has_gravity": false
+            "minecraft:health": {
+                "value": 999,
+                "max": 999
             },
-            "minecraft:movement": {
-                "value": 0
+            "minecraft:fire_immune": {},
+            "minecraft:nameable": {
+                "always_show": false
+            },
+            "minecraft:type_family": {
+                "family": ["inanimate"]
+            },
+            "minecraft:damage_sensor": {
+                "triggers": {
+                    "deals_damage": false
+                }
+            },
+            "minecraft:knockback_resistance": {
+                "value": 1
+            },
+            "minecraft:behavior.float": {
+                "priority": 0
             },
             "minecraft:pushable": {
                 "is_pushable": false,
                 "is_pushable_by_piston": false
             },
-            "minecraft:damage_sensor": {
-                "triggers": [
+            "minecraft:physics": {
+                "has_collision": false,
+                "has_gravity": false,
+                "push_towards_closest_space": true
+            },
+            "minecraft:tameable": {
+                "probability": 0.0
+            },
+            "minecraft:is_tamed": {},
+            "minecraft:inventory": {
+                "can_be_siphoned_from": false,
+                "container_type": "minecart_chest",
+                "inventory_size": 27,
+                "private": false,
+                "restrict_to_owner": true
+            },
+            "minecraft:entity_sensor": {
+                "subsensors": [
                     {
-                        "cause": "all",
-                        "deals_damage": "no"
+                        "range": [1, 1],
+                        "cooldown": -1,
+                        "require_all": false,
+                        "event_filters": {
+                            "all_of": [
+                                {
+                                    "test": "is_owner",
+                                    "subject": "other",
+                                    "value": true
+                                },
+                                {
+                                    "test": "has_container_open",
+                                    "subject": "other",
+                                    "operator": "==",
+                                    "value": true
+                                }
+                            ]
+                        },
+                        "event": "set_open"
+                    },
+                    {
+                        "range": [1, 1],
+                        "cooldown": -1,
+                        "require_all": false,
+                        "event_filters": {
+                            "all_of": [
+                                {
+                                    "test": "is_owner",
+                                    "subject": "other",
+                                    "value": true
+                                },
+                                {
+                                    "test": "has_container_open",
+                                    "subject": "other",
+                                    "operator": "==",
+                                    "value": false
+                                }
+                            ]
+                        },
+                        "event": "set_close"
                     }
                 ]
             },
-            "minecraft:is_hidden_when_invisible": {},
             "minecraft:interact": {
                 "interactions": [
                     {
                         "on_interact": {
-                            "event": "open_storage"
+                            "filters": {
+                                "test": "is_owner",
+                                "subject": "other",
+                                "value": true
+                            }
                         },
-                        "use_item": false
+                        "use_item": false,
+                        "swing": true,
+                        "interact_text": "action.open"
                     }
                 ]
             }
         },
         "events": {
-            "open_storage": {}
+            "set_open": {
+                "set_property": {
+                    "as:open_inv": true
+                }
+            },
+            "set_close": {
+                "set_property": {
+                    "as:open_inv": false
+                }
+            }
         }
     }
 }
