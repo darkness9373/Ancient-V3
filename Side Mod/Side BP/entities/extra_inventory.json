@@ -1,0 +1,55 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "as:inventory",
+            "is_summonable": true,
+            "is_spawnable": false
+        },
+        "components": {
+            "minecraft:health": {
+                "value": 999,
+                "max": 999
+            },
+            "minecraft:inventory": {
+                "inventory_size": 27
+            },
+            "minecraft:collision_box": {
+                "height": 0.5,
+                "width": 0.5
+            },
+            "minecraft:physics": {
+                "has_gravity": false
+            },
+            "minecraft:movement": {
+                "value": 0
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:damage_sensor": {
+                "triggers": [
+                    {
+                        "cause": "all",
+                        "deals_damage": "no"
+                    }
+                ]
+            },
+            "minecraft:is_hidden_when_invisible": {},
+            "minecraft:interact": {
+                "interactions": [
+                    {
+                        "on_interact": {
+                            "event": "open_storage"
+                        },
+                        "use_item": false
+                    }
+                ]
+            }
+        },
+        "events": {
+            "open_storage": {}
+        }
+    }
+}

@@ -1,3 +1,11 @@
-export const buy = {}
+export const buyGold = {}
 
-export const sell = {}
+export const sellGold = {}
+
+export const buyFishcoin = {}
+
+export const sellFishcoin = {}
+
+export const buyDungeoncoin = {}
+
+export const sellDungeoncoin = {}

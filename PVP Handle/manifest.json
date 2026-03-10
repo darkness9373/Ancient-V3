@@ -1,0 +1,48 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "PVP Handle",
+        "description": "-",
+        "uuid": "43165ff9-176e-42bb-b43c-a2632db600fc",
+        "version": [
+            1,
+            0,
+            1
+        ],
+        "min_engine_version": [
+            1,
+            21,
+            80
+        ]
+    },
+    "modules": [
+        {
+            "description": "-",
+            "type": "data",
+            "uuid": "eec8fa77-7fae-4869-b59c-5b88c4b9ccf5",
+            "version": [
+                1,
+                0,
+                1
+            ]
+        },
+        {
+            "description": "-",
+            "type": "script",
+            "language": "javascript",
+            "uuid": "09dc68a6-8ff6-4f99-a92a-266481441e1e",
+            "version": [
+                1,
+                0,
+                1
+            ],
+            "entry": "scripts/main.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "2.6.0-beta"
+        }
+    ]
+}
