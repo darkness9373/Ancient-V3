@@ -59,7 +59,7 @@ export function teleportToIsland(player) {
         }
     }
     player.tryTeleport(safePos, { dimension: dimension });
-    player.addEffect('resistance', 100, { showParticles: true });
+    player.addEffect('resistance', 100, { showParticles: true, amplifier: 254 });
 
     return { success: true, message: '§a[!] You teleported to the island' };
 }

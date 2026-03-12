@@ -1,5 +1,5 @@
 import { CommandPermissionLevel, Player, system } from "@minecraft/server";
-import { getIsland, ISLAND_SLOTS } from "../core/islandManager";
+import { getIsland, ISLAND_SLOTS, reclaimIsland } from "../core/islandManager";
 import { ActionFormData } from "@minecraft/server-ui";
 
 system.beforeEvents.startup.subscribe(data => {

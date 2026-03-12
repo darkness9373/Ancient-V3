@@ -1,5 +1,7 @@
 import { CommandPermissionLevel, CustomCommandParamType, Player, system, world } from "@minecraft/server";
 import Tag from './extension/Tag'
+import './commands/_load'
+import './core/arenaManager'
 
 system.beforeEvents.startup.subscribe(data => {
     data.customCommandRegistry.registerEnum('as:pvp',
