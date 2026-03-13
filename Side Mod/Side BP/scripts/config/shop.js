@@ -1,4 +1,36 @@
-export const buyGold = {}
+export const buyGold = {
+    Items: [
+    {
+        id: 'diamond',
+        tex: 'textures/items/diamond',
+        price: 140
+    },
+    {
+        id: '',
+        tex: '',
+        price: 0
+    },
+    {
+        id: '',
+        tex: '',
+        price: 0
+    },
+    {
+        id: '',
+        tex: '',
+        price: 0
+    },
+    {
+        id: '',
+        tex: '',
+        price: 0
+    },
+    {
+        id: '',
+        tex: '',
+        price: 0
+    }]
+}
 
 export const sellGold = {}
 
