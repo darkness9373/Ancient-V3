@@ -47,6 +47,8 @@ const data = (player) => {
         MONEY: Score.get(player, 'money') ?? 0,
         FISHCOIN: Score.get(player, 'fishcoin') ?? 0,
         DUNGEONCOIN: Score.get(player, 'dungeoncoin') ?? 0,
-        GOLD: Score.get(player, 'gold') ?? 0
+        GOLD: Score.get(player, 'gold') ?? 0,
+        GACHA: Score.get(player, 'gacha') ?? 0,
+        LOGIN: Score.get(player, 'login') ?? 0
     }];
 };
