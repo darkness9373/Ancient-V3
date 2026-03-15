@@ -2,6 +2,36 @@ import { Player, world } from "@minecraft/server";
 import { getData, setData } from "./database"
 import { getPlayerData, savePlayerData } from "./playerManager";
 
+export function removePermission(host, targetName) {
+    const hostData = getPlayerData(host.name);
+    if (!hostData.currentIsland) return { success: false, message: '§c[!] You are not in an island' };
+    if (hostData.role !== 'host') return { success: false, message: '§c[!] You are not the island host' };
+    const islandKey = `island:${hostData.currentIsland}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (!island.members.includes(targetName)) return { success: false, message: '§c[!] Target is not have permission' };
+
+    island.members = island.members.filter(m => m !== targetName);
+    setData(islandKey, island);
+
+    return { success: true, message: '§a[!] You removed permission from §e${targetName}' };
+}
+
+export function addPermission(host, targetName) {
+    const hostData = getPlayerData(host.name);
+    if (!hostData.currentIsland) return { success: false, message: '§c[!] You are not in an island' };
+    if (hostData.role !== 'host') return { success: false, message: '§c[!] You are not the island host' };
+    const islandKey = `island:${hostData.currentIsland}`;
+    const island = getData(islandKey);
+    if (!island) return { success: false, message: '§c[!] Island not found' };
+    if (island.members.includes(targetName)) return { success: false, message: '§c[!] Target is already have permission' };
+
+    island.members.push(targetName);
+    setData(islandKey, island);
+
+    return { success: true, message: '§a[!] You added permission to §e${targetName}' };
+}
+
 export function reclaimIsland(islandId) {
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);

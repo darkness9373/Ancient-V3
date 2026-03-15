@@ -1,6 +1,6 @@
 import { system, Player, CommandPermissionLevel, world } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { getIsland } from "../core/islandManager";
+import { addPermission, getIsland, removePermission } from "../core/islandManager";
 import { getPlayerData } from "../core/playerManager";
 import { leaveIsland, kickMember, transferHost, acceptPlayer, rejectPlayer, teleportToIsland } from "../core/islandManager";
 import { setData } from "../core/database";
@@ -41,6 +41,7 @@ function openMyIsland(player) {
         form.button('Change Island Name')
         form.button('Transfer Host')
         form.button('Approval Requests')
+        form.button('Permission Management')
     }
     form.show(player).then(result => {
         if (result.canceled) return;
@@ -76,7 +77,72 @@ function handleMyIslandSelection(player, selection, island) {
         case 5:
             openHostApprovalMenu(player, island);
             break;
+        case 6:
+            openPermissionManagement(player, island);
+            break;
     }
+}
+
+function openPermissionManagement(player, island) {
+    const func = []
+    const form = new ActionFormData()
+    form.title('Permission Management')
+    form.body('Select a player you want to manage\n')
+    const permissionList = []
+    for (const allowed of island.allowed) {
+        const status = world.getPlayers().find(p => p.name === allowed) ? '§aOnline' : '§cOffline';
+        form.button(`${allowed}\n${status}`)
+        func.push(() => {
+            permissionActionForm(player, allowed)
+        })
+        permissionList.push(allowed)
+    }
+    if (permissionList.length === 0) {
+        form.body('No player have permission')
+    }
+    form.button('Add Permission')
+    func.push(() => {
+        addPermissionForm(player, island)
+    })
+    form.show(player).then(r => {
+        if (r.canceled) return;
+        func[r.selection]()
+    })
+}
+
+function permissionActionForm(player, targetName) {
+    const form = new ActionFormData()
+    form.title('Permission Actions')
+    form.body(`Select an action for §e${targetName}§r`)
+    form.button('Remove Permission')
+    form.show(player).then(r => {
+        if (r.canceled) return;
+        const action = r.selection;
+        if (action === 0) {
+            const result = removePermission(player, targetName);
+            player.sendMessage(result.message);
+        }
+    })
+}
+
+function addPermissionForm(player, island) {
+    if (island.host !== player.name) return player.sendMessage('§c[!] You are not the island host');
+    const form = new ActionFormData()
+    form.title('Add Permission')
+    form.body('Select a player you want to add permission\n')
+    const permissionList = []
+    for (const plr of world.getPlayers()) {
+        if (plr.id !== player.id) {
+            form.button(plr.name)
+            permissionList.push(plr.name)
+        }
+    }
+    form.show(player).then(r => {
+        if (r.canceled) return;
+        const target = permissionList[r.selection];
+        const result = addPermission(player, target);
+        player.sendMessage(result.message);
+    })
 }
 
 /** @param {Player} player */
