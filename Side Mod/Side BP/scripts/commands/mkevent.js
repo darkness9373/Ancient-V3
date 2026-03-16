@@ -2,6 +2,7 @@ import { Player, system, world } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
 
 let event = null;
+let nameEvent = null;
 
 system.beforeEvents.startup.subscribe((data) => {
     data.customCommandRegistry.registerCommand({
@@ -14,6 +15,16 @@ system.beforeEvents.startup.subscribe((data) => {
         if (!(player instanceof Player)) return
         if (event) return player.sendMessage('§c[!] An event is already running');
         system.run(() => openEventForm(player))
+    })
+    data.customCommandRegistry.registerCommand({
+        name: "as:cancelevent",
+        description: "Cancel running event",
+        cheatsRequired: false,
+        permissionLevel: 1
+    }, (origin) => {
+        const player = origin.sourceEntity;
+        if (!(player instanceof Player)) return
+        system.run(() => cancelEvent(player))
     })
 })
 
@@ -54,6 +65,7 @@ function openEventForm(player) {
 function runEvent(eventName, countdown, coords, teleport, dimension) {
     if (event) return player.sendMessage('§c[!] An event is already running');
     let cd = countdown;
+    nameEvent = eventName;
     event = system.runInterval(() => {
         const min = Math.floor(cd / 60);
         const sec = cd % 60;
@@ -64,6 +76,7 @@ function runEvent(eventName, countdown, coords, teleport, dimension) {
         if (cd <= 0) {
             system.clearRun(event);
             event = null;
+            nameEvent = null;
             for (const p of world.getPlayers()) {
                 p.sendMessage(`§a[!] The ${eventName} event has started`);
                 if (teleport && coords) {
@@ -78,4 +91,14 @@ function runEvent(eventName, countdown, coords, teleport, dimension) {
             }
         }
     }, 20)
+}
+
+function cancelEvent(player) {
+    if (!event) return player.sendMessage('§c[!] No event is running');
+    system.clearRun(event);
+    event = null;
+    for (const p of world.getPlayers()) {
+        p.sendMessage(`§c[!] Event ${nameEvent} has been cancelled`);
+    }
+    player.sendMessage(`§c[!] Event ${nameEvent} has been cancelled`);
 }
