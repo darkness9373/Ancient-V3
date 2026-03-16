@@ -9,9 +9,9 @@ export function removePermission(host, targetName) {
     const islandKey = `island:${hostData.currentIsland}`;
     const island = getData(islandKey);
     if (!island) return { success: false, message: '§c[!] Island not found' };
-    if (!island.members.includes(targetName)) return { success: false, message: '§c[!] Target is not have permission' };
+    if (!island.allowed.includes(targetName)) return { success: false, message: '§c[!] Target is not have permission' };
 
-    island.members = island.members.filter(m => m !== targetName);
+    island.allowed = island.allowed.filter(m => m !== targetName);
     setData(islandKey, island);
 
     return { success: true, message: '§a[!] You removed permission from §e${targetName}' };
@@ -24,9 +24,9 @@ export function addPermission(host, targetName) {
     const islandKey = `island:${hostData.currentIsland}`;
     const island = getData(islandKey);
     if (!island) return { success: false, message: '§c[!] Island not found' };
-    if (island.members.includes(targetName)) return { success: false, message: '§c[!] Target is already have permission' };
+    if (island.allowed.includes(targetName)) return { success: false, message: '§c[!] Target is already have permission' };
 
-    island.members.push(targetName);
+    island.allowed.push(targetName);
     setData(islandKey, island);
 
     return { success: true, message: '§a[!] You added permission to §e${targetName}' };
@@ -138,7 +138,7 @@ export function kickMember(player, targetName) {
     return { success: true, message: `§a[!] You kicked §e${targetName}` };
 }
 
-export function rejectPlayer(islandId, playerName) {
+export function rejectPlayer(host, islandId, playerName) {
     const islandKey = `island:${islandId}`;
     const island = getData(islandKey);
     if (!island) return { success: false, message: '§c[!] Island not found' };

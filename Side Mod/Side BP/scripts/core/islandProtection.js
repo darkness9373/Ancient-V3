@@ -7,6 +7,7 @@ function isIslandMember(player, island) {
     if (!island) return false;
     if (island.host === player.name) return true;
     if (island.members.includes(player.name)) return true;
+    if (island.allowed.includes(player.name)) return true;
     return false;
 }
 

@@ -223,7 +223,7 @@ function openApprovalActionMenu(player, island, targetName) {
             const result = acceptPlayer(island.id, targetName);
             player.sendMessage(result.message);
         } else {
-            const result = rejectPlayer(island.id, targetName);
+            const result = rejectPlayer(player, island.id, targetName);
             player.sendMessage(result.message);
         }
     })
