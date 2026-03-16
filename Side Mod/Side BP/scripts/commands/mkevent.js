@@ -50,7 +50,7 @@ function makeEventForm(player) {
 function spawnEvent(eventName, countdown, coords, tag, dimension) {
     const dim = [
         world.getDimension('overworld'),
-        world.getDimension('the_nether'),
+        world.getDimension('nether'),
         world.getDimension('the_end')
     ]
     for (const d of dim) {
@@ -71,7 +71,7 @@ function runEvent(eventName, countdown, coords, tag, dimension) {
     event = system.runInterval(() => {
         const dim = [
             world.getDimension('overworld'),
-            world.getDimension('the_nether'),
+            world.getDimension('nether'),
             world.getDimension('the_end')
         ]
         for (const d of dim) {
