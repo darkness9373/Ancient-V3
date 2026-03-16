@@ -12,7 +12,7 @@ system.beforeEvents.startup.subscribe(data => {
     }, (origin) => {
         const player = origin.sourceEntity;
         if (!(player instanceof Player)) return;
-        makeEventForm(player)
+        system.run(() => makeEventForm(player))
     })
 })
 
@@ -36,9 +36,13 @@ function makeEventForm(player) {
         let coords = r.formValues[3].trim();
         const tag = r.formValues[4].trim();
         if (!teleport) coords = null;
-        const loc = coords.split(' ');
-        if (loc.length !== 3) return player.sendMessage('§c[!] Teleport coordinates must be in the format of x y z');
-        if (isNaN(Number(loc[0])) || isNaN(Number(loc[1])) || isNaN(Number(loc[2]))) return player.sendMessage('§c[!] Teleport coordinates must be a number');
+        let loc = null;
+        if (coords) {
+            loc = coords.split(' ');
+            if (loc.length !== 3) return player.sendMessage('§c[!] Teleport coordinates must be in the format of x y z');
+            if (isNaN(Number(loc[0])) || isNaN(Number(loc[1])) || isNaN(Number(loc[2]))) return player.sendMessage('§c[!] Teleport coordinates must be a number');
+        }
+        coords = loc ? `${loc[0]} ${loc[1]} ${loc[2]}` : null;
         spawnEvent(eventName, countdown, coords, tag, r.formValues[5].trim());
     })
 }
