@@ -31,7 +31,7 @@ export function getDungeonStatus() {
     return data.status;
 }
 
-export function addNewDungeon(structureId, bossId, location, tpPos) {
+export function addNewDungeon(structureId, bossId, location, tpPos, dimenson) {
     const dataKey = 'dungeon:levels';
     const data = getData(dataKey);
     if (!data) return { success: false, message: '§c[!] Invalid dungeon data'};
@@ -42,7 +42,8 @@ export function addNewDungeon(structureId, bossId, location, tpPos) {
         level: newNumber,
         boss: bossId,
         location: location,
-        teleport: tpPos
+        teleport: tpPos,
+        dimenson: dimenson
     }
     setData(dataKey, data);
     return { success: true, message: `§a[!] Dungeon level ${newNumber} added` };

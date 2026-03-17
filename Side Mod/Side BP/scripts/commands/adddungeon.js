@@ -22,6 +22,7 @@ function addDungeonForm(player) {
     form.textField('Boss ID', 'xxx')
     form.textField('Location', '100 100 100', { defaultValue: '100 100 100' })
     form.textField('Spawn', '100 100 100', { defaultValue: '100 100 100' })
+    form.textField('Dimension', 'overworld, nether, the_end', { defaultValue: 'overworld' })
     form.show(player).then(r => {
         if (r.canceled) return;
         const structureId = r.formValues[0].trim()
@@ -40,7 +41,8 @@ function addDungeonForm(player) {
             if (spawn.length !== 3) return player.sendMessage('§c[!] Spawn must be in the format of x y z');
             if (isNaN(Number(spawn[0])) || isNaN(Number(spawn[1])) || isNaN(Number(spawn[2]))) return player.sendMessage('§c[!] Spawn must be a number');
         }
-        const result = addNewDungeon(structureId, bossId, location, spawn);
+        const dimension = r.formValues[4].trim()
+        const result = addNewDungeon(structureId, bossId, location, spawn, dimension);
         player.sendMessage(result.message);
     })
 }
