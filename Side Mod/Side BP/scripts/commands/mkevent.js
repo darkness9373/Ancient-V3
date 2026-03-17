@@ -79,6 +79,7 @@ function runEvent(eventName, countdown, coords, teleport, dimension) {
             nameEvent = null;
             for (const p of world.getPlayers()) {
                 p.sendMessage(`§a[!] The ${eventName} event has started`);
+                p.onScreenDisplay.setActionBar(`§a[!] The ${eventName} event has started`);
                 if (teleport && coords) {
                     p.teleport({
                         x: coords.x,
@@ -89,7 +90,9 @@ function runEvent(eventName, countdown, coords, teleport, dimension) {
                     });
                 }
             }
+            return;
         }
+        cd--;
     }, 20)
 }
 

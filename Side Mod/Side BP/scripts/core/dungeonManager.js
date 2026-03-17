@@ -44,4 +44,6 @@ export function addNewDungeon(structureId, bossId, location, tpPos) {
         location: location,
         teleport: tpPos
     }
+    setData(dataKey, data);
+    return { success: true, message: `§a[!] Dungeon level ${newNumber} added` };
 }
