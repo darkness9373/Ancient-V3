@@ -23,7 +23,7 @@ system.beforeEvents.startup.subscribe(data => {
         const player = origin.sourceEntity;
         if (!(player instanceof Player)) return;
         const config = getRankActive(player)
-        if (!config || !config.command.includes('fly')) return player.sendMessage('§c[!] You do not have permission to use this command')
+        if (!config || !config.commands.includes('fly')) return player.sendMessage('§c[!] You do not have permission to use this command')
         if (fly === 'enable') {
             let data = loadFlyData(player, config.flyEnergy)
             if (data.locked) {
@@ -47,7 +47,7 @@ system.runInterval(() => {
         if (player.hasTag('admin')) continue;
         const config = getRankActive(player)
         if (!config) continue;
-        if (!config.command.includes('fly')) continue;
+        if (!config.commands.includes('fly')) continue;
         let data = loadFlyData(player, config.flyEnergy)
         if (!data) continue;
         const isFlying = player.isFlying
