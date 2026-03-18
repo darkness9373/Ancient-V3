@@ -67,3 +67,5 @@ export const RANK_CUSTOM = {
         }
     ]
 }
+
+export const PROGRESS_CONFIG = {}

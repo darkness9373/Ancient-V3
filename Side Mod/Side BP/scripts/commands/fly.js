@@ -1,6 +1,5 @@
 import { system, Player, CommandPermissionLevel, world } from '@minecraft/server'
-import { RANK_CONFIG } from '../config/rank'
-import { PlayerDatabase } from '../extension/Database'
+import { getRankActive } from '../core/database'
 
 const warning1 = 500
 const warning2 = 100
@@ -23,9 +22,8 @@ system.beforeEvents.startup.subscribe(data => {
     }, (origin, fly) => {
         const player = origin.sourceEntity;
         if (!(player instanceof Player)) return;
-        const rank = new PlayerDatabase(player, 'Rank') ?? null;
-        const config = RANK_CONFIG[rank]
-        if (!config || !config.command.includes('fly')) return
+        const config = getRankActive(player)
+        if (!config || !config.command.includes('fly')) return player.sendMessage('§c[!] You do not have permission to use this command')
         if (fly === 'enable') {
             let data = loadFlyData(player, config.flyEnergy)
             if (data.locked) {
@@ -47,8 +45,7 @@ system.beforeEvents.startup.subscribe(data => {
 system.runInterval(() => {
     for (const player of world.getPlayers()) {
         if (player.hasTag('admin')) continue;
-        const rank = new PlayerDatabase(player, 'Rank')
-        const config = RANK_CONFIG[rank]
+        const config = getRankActive(player)
         if (!config) continue;
         if (!config.command.includes('fly')) continue;
         let data = loadFlyData(player, config.flyEnergy)

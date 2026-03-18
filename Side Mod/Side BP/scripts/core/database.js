@@ -1,4 +1,5 @@
-import { world } from '@minecraft/server';
+import { Player, world } from '@minecraft/server';
+import { PROGRESS_CONFIG, RANK_CONFIG, RANK_CUSTOM } from '../config/rank';
 
 export function getData(key) {
     const raw = world.getDynamicProperty(key);
@@ -43,4 +44,40 @@ export function getGold(playerName) {
 
 export function setGold(playerName, value) {
     world.setDynamicProperty(`gold:${playerName}`, value)
+}
+
+/** 
+ * Get rank displayed in the player chat, scoreboard, etc.
+ * @param {Player} player
+ */
+export function getRankDisplay(player) {
+    const type = player.getDynamicProperty('RankDisplay') || 'progress'
+    if (type === 'exclusive') {
+        const rank = player.getDynamicProperty('Rank')
+        return RANK_CONFIG[rank] || null;
+    }
+    if (type === 'progress') {
+        const rank = player.getDynamicProperty('RankProgress')
+        return PROGRESS_CONFIG[rank] || null;
+    }
+    if (type === 'custom') {
+        const rank = player.getDynamicProperty('RankCustom')
+        if (!rank) return null;
+        return RANK_CUSTOM || null;
+    }
+
+    return null;
+}
+
+/**
+ * Get active player rank to maintain rank feature like fly mode, etc.
+ * @param {Player} player 
+ */
+export function getRankActive(player) {
+    const customRank = player.getDynamicProperty('RankCustom')
+    const rank = player.getDynamicProperty('Rank')
+    if (customRank) {
+        return RANK_CUSTOM || null;
+    }
+    return RANK_CONFIG[rank] || null;
 }
