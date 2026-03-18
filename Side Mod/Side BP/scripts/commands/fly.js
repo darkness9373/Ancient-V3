@@ -55,21 +55,25 @@ system.runInterval(() => {
         if (!data) continue;
         const isFlying = player.isFlying
         if (data.enabled && isFlying && !data.locked) {
-            data.energy--
+            data.energy--;
+            let display = `§a${data.energy}/${config.flyEnergy}`
             if (data.energy <= 0) {
                 data.energy = 0
                 data.locked = true
                 data.enabled = false
+                display = '§4Fly energy is exhausted'
                 player.runCommand('ability @s mayfly false')
                 player.sendMessage('§c[!] Fly energy is exhausted')
             }
             if (data.energy < warning1 && data.warning === 0) {
                 data.warning = 1
                 player.sendMessage('§c[!] Fly energy is running low')
+                display = `§e${data.energy}/${config.flyEnergy}`
             }
             if (data.energy < warning2 && data.warning === 1) {
                 data.warning = 2
                 player.sendMessage('§c[!] Fly energy is almost empty')
+                display = `§c${data.energy}/${config.flyEnergy}`
             }
         }
         if (!isFlying) {
