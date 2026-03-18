@@ -3,23 +3,24 @@
 
 /*
 
-NAME: player.name,
-PING: ping >= 100 ? '§e' + ping + 'ms' : '§a' + ping + 'ms',
-ONLINE: world.getPlayers().length,
-DEATH: Score.get(player, 'death') ?? 0,
-BLANK: ' ',
-BREAK: makeLine('—', 15),
-MONEY: Score.get(player, 'money') ?? 0,
-FISHCOIN: Score.get(player, 'fishcoin') ?? 0,
-DUNGEONCOIN: Score.get(player, 'dungeoncoin') ?? 0,
-GOLD: Score.get(player, 'gold') ?? 0,
-GACHA: Score.get(player, 'gacha') ?? 0,
-LOGIN: Score.get(player, 'login') ?? 0
+NAME: Player Name
+PING: Server Ping
+ONLINE: Player online in the server
+DEATH: Player death count
+BLANK: ' '
+BREAK: makeLine('—', 15)
+MONEY: Player money
+FISHCOIN: Player fish coin
+DUNGEONCOIN: Player dungeon coin
+GOLD: Player gold
+GACHA: Player total gacha
+LOGIN: Player daily login
+RANK: Player rank display
 
 */
 export const board = {
     Line: [
-        '   §l§aAncient Survival§r',
+        '§l§aAncient Survival§r',
         '',
         '§l§g@NAME§r',
         '§l§bRank: §r@RANK',

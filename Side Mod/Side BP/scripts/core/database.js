@@ -54,16 +54,25 @@ export function getRankDisplay(player) {
     const type = player.getDynamicProperty('RankDisplay') || 'progress'
     if (type === 'exclusive') {
         const rank = player.getDynamicProperty('Rank')
-        return RANK_CONFIG[rank] || null;
+        return {
+            type: 'exclusive',
+            config: RANK_CONFIG[rank]
+        } || null;
     }
     if (type === 'progress') {
         const rank = player.getDynamicProperty('RankProgress')
-        return PROGRESS_CONFIG[rank] || null;
+        return {
+            type: 'progress',
+            config: PROGRESS_CONFIG[rank]
+        } || null;
     }
     if (type === 'custom') {
         const rank = player.getDynamicProperty('RankCustom')
         if (!rank) return null;
-        return RANK_CUSTOM || null;
+        return {
+            type: 'custom',
+            config: RANK_CUSTOM
+        } || null;
     }
 
     return null;

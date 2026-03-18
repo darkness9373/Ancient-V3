@@ -1,6 +1,8 @@
 import { Player, system, world } from "@minecraft/server";
 import Score from "../extension/Score";
 import { board } from "../config/board";
+import { getRankDisplay } from "./database";
+import { PlayerDatabase } from "../extension/Database";
 
 function getPlaceholder(text, data) {
     for (const item of data) {
@@ -36,7 +38,17 @@ function makeLine(text, length) {
  * @returns 
  */
 const data = (player) => {
-    const ping = Score.get(player, 'ping') ?? 0;
+    const ping = Score.get(player, 'ping') ?? 0
+    const rank = getRankDisplay(player)
+    let rankDisplay = 'No Rank'
+    if (rank) {
+        if (rank.type === 'exclusive' || rank.type === 'progress') {
+            rankDisplay = rank.config.show
+        }
+        else if (rank.type === 'custom') {
+            rankDisplay = `${new PlayerDatabase(player, 'RankCustomColor')}${new PlayerDatabase(player, 'RankCustom')}§r`
+        }
+    }
     return [{
         NAME: player.name,
         PING: ping >= 100 ? '§e' + ping + 'ms' : '§a' + ping + 'ms',
@@ -49,6 +61,7 @@ const data = (player) => {
         DUNGEONCOIN: Score.get(player, 'dungeoncoin') ?? 0,
         GOLD: Score.get(player, 'gold') ?? 0,
         GACHA: Score.get(player, 'gacha') ?? 0,
-        LOGIN: Score.get(player, 'login') ?? 0
+        LOGIN: Score.get(player, 'login') ?? 0,
+        RANK: rankDisplay
     }];
 };
