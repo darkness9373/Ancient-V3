@@ -53,8 +53,9 @@ system.runInterval(() => {
         db = []
     }
     if (db.length === 0) return;
-    for (let i = 0; i < db.length; i++) {
-        const player = world.getPlayers().find(x => x.name.toLowerCase() === db[i].name)
+    let changed = false;
+    for (let i = db.length - 1; i >= 0; i--) {
+        const player = world.getPlayers().find(x => x.name.toLowerCase() === db[i].name.toLowerCase())
         if (!player) continue;
         let rankList = player.getDynamicProperty('RankList')
         try {
@@ -62,14 +63,36 @@ system.runInterval(() => {
         } catch (e) {
             rankList = []
         }
+        if (!Array.isArray(rankList)) rankList = []
         if (rankList.includes(db[i].rank)) {
-            player.sendMessage(`Yo are already have the ${db[i].rank} rank`)
+            db.splice(i, 1)
+            changed = true;
             continue;
         }
         rankList.push(db[i].rank)
         player.setDynamicProperty('RankList', JSON.stringify(rankList))
         player.setDynamicProperty('Rank', db[i].rank)
         player.sendMessage(`§g${db[i].rank} §ahas been added to your rank list`)
+
+        const rankData = RANK_CONFIG[db[i].rank]
+        if (rankData?.rewards) {
+            for (let i = 0; i < rankData.rewards.length; i++) {
+                giveItem(player, rankData.rewards[i].item, rankData.rewards[i].amount)
+            }
+        }
+
         db.splice(i, 1)
+        changed = true;
+    }
+    if (changed) {
+        world.setDynamicProperty('AddRank', JSON.stringify(db))
     }
 }, 100)
+
+function giveItem(player, itemId, amount = 1) {
+    try {
+        player.runCommand(`give ${player.name} ${itemId} ${amount}`)
+    } catch (error) {
+        player.sendMessage(`§cError: ${error.message}`)
+    }
+}
