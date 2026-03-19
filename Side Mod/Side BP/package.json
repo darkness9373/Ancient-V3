@@ -11,7 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@minecraft/server": "^2.5.0",
+    "@minecraft/server": "^2.6.0-beta.1.26.3-stable",
     "@minecraft/server-ui": "^2.0.0"
   }
 }

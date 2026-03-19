@@ -4,11 +4,16 @@ import { board } from "../config/board";
 import { getRankDisplay } from "./database";
 import { PlayerDatabase } from "../extension/Database";
 
+const boardTemplate = board.Line.join('\n')
+const regexCache = new Map()
+
 function getPlaceholder(text, data) {
     for (const item of data) {
         for (const key in item) {
-            const holder = new RegExp('@' + key, 'g');
-            text = text.replace(holder, item[key]);
+            if (!regexCache.has(key)) {
+                regexCache.set(key, new RegExp('@' + key, 'g'))
+            }
+            text = text.replace(regexCache.get(key), item[key]);
         }
     }
     return text;
@@ -19,7 +24,7 @@ system.runInterval(() => {
         const getBoard = player.getDynamicProperty('showBoard') ?? true;
         if (!getBoard) continue;
         player.onScreenDisplay.setTitle(
-            getPlaceholder(board.Line.join('\n'), data(player))
+            getPlaceholder(boardTemplate, data(player))
         );
     };
 }, 20);
@@ -46,17 +51,15 @@ const data = (player) => {
             rankDisplay = rank.config.show
         }
         else if (rank.type === 'custom') {
-            rankDisplay = `${new PlayerDatabase(player, 'RankCustomColor')}${new PlayerDatabase(player, 'RankCustom')}§r`
+            rankDisplay = `${new PlayerDatabase(player, 'RankCustomColor').get() ?? '§f'}${new PlayerDatabase(player, 'RankCustom').get()}§r`
         }
     }
     return [{
         NAME: player.name,
         PING: ping >= 100 ? '§e' + ping + 'ms' : '§a' + ping + 'ms',
         ONLINE: world.getPlayers().length,
-        DEATH: Score.get(player, 'death') ?? 0,
         BLANK: ' ',
         BREAK: makeLine('—', 15),
-        MONEY: Score.get(player, 'money') ?? 0,
         FISHCOIN: Score.get(player, 'fishcoin') ?? 0,
         DUNGEONCOIN: Score.get(player, 'dungeoncoin') ?? 0,
         GOLD: Score.get(player, 'gold') ?? 0,
