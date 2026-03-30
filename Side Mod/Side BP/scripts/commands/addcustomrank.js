@@ -1,4 +1,4 @@
-import { system, world } from "@minecraft/server";
+import { system, world, Player } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
 
 system.beforeEvents.startup.subscribe(data => {

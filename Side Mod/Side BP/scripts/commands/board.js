@@ -18,12 +18,13 @@ system.beforeEvents.startup.subscribe(data => {
         const player = origin.sourceEntity;
         if (!(player instanceof Player)) return;
         if (board === 'enable') {
-            player.setDynamicProperty(showBoard, true);
+            player.setDynamicProperty('showBoard', true);
             player.sendMessage('§a[!] Scoreboard enabled');
         }
         else if (board === 'disable') {
-            player.setDynamicProperty(showBoard, false);
+            player.setDynamicProperty('showBoard', false);
             player.sendMessage('§c[!] Scoreboard disabled');
+			system.run(() => player.onScreenDisplay.setTitle(''))
         }
     })
 })

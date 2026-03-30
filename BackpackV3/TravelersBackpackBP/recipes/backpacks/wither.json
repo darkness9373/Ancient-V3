@@ -1,0 +1,35 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:wither"
+        },
+        "tags": ["crafting_table"],
+        "pattern":  [
+          " C ",
+          "XDX",
+          " C "
+        ],
+        "key": {
+          "C": {
+            "item": "minecraft:skull",
+            "data": 1
+          },
+          "X": {
+            "item": "minecraft:soul_sand"
+          },
+          "D": {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:wither_backpack_item",
+          "count": 1
+        }
+    }
+}

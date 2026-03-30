@@ -1,0 +1,307 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.crates": {
+			"initial_state": "start",
+			"states": {
+				"start": {
+					"transitions": [
+						{
+							"particle": "(query.scoreboard('halo') < 4)"
+						},
+						{
+							"particle1": "(query.scoreboard('halo') == 4)"
+						},
+						{
+							"particle2": "(query.scoreboard('halo') == 5)"
+						},
+						{
+							"particle6": "(query.scoreboard('halo') == 6)"
+						},
+						{
+							"particle7": "(query.scoreboard('halo') == 7)"
+						},
+						{
+							"particle8": "(query.scoreboard('halo') == 8)"
+						},
+						{
+							"particle9": "(query.scoreboard('halo') == 9)"
+						},
+						{
+							"particle10": "(query.scoreboard('halo') == 10)"
+						},
+						{
+							"particle11": "(query.scoreboard('halo') == 11)"
+						},
+						{
+							"particle12": "(query.scoreboard('halo') == 12)"
+						},
+						{
+							"particle13": "(query.scoreboard('halo') == 13)"
+						},
+						{
+							"particle14": "(query.scoreboard('halo') == 14)"
+						},
+						{
+							"particle15": "(query.scoreboard('halo') == 15)"
+						},
+						{
+							"particle16": "(query.scoreboard('halo') == 16)"
+						},
+						{
+							"particle17": "(query.scoreboard('halo') == 17)"
+						},
+						{
+							"particle18": "(query.scoreboard('halo') == 18)"
+						}
+					]
+				},
+				"particle": {
+					"animations": [
+						"crate_particle"
+					],
+					"transitions": [
+						{
+							"opening": "(query.mark_variant == 1) && (query.variant != 0)"
+						},
+						{
+							"particle1": "(query.scoreboard('halo') == 4)"
+						},
+						{
+							"particle2": "(query.scoreboard('halo') == 5)"
+						},
+						{
+							"particle3": "(query.scoreboard('halo') == 1)"
+						},
+						{
+							"particle4": "(query.scoreboard('halo') == 2)"
+						},
+						{
+							"particle5": "(query.scoreboard('halo') == 3)"
+						},
+						{
+							"particle6": "(query.scoreboard('halo') == 6)"
+						},
+						{
+							"particle7": "(query.scoreboard('halo') == 7)"
+						},
+						{
+							"particle8": "(query.scoreboard('halo') == 8)"
+						},
+						{
+							"particle9": "(query.scoreboard('halo') == 9)"
+						},
+						{
+							"particle10": "(query.scoreboard('halo') == 10)"
+						},
+						{
+							"particle11": "(query.scoreboard('halo') == 11)"
+						},
+						{
+							"particle12": "(query.scoreboard('halo') == 12)"
+						},
+						{
+							"particle13": "(query.scoreboard('halo') == 13)"
+						},
+						{
+							"particle14": "(query.scoreboard('halo') == 14)"
+						},
+						{
+							"particle15": "(query.scoreboard('halo') == 15)"
+						},
+						{
+							"particle16": "(query.scoreboard('halo') == 16)"
+						},
+						{
+							"particle17": "(query.scoreboard('halo') == 17)"
+						},
+						{
+							"particle18": "(query.scoreboard('halo') == 18)"
+						}
+					]
+				},
+				"particle1": {
+					"animations": [
+						"crate_particle","4halo"
+					],
+					"transitions": [
+						{
+							"particle": "(query.scoreboard('halo') < 4)"
+						},
+						{
+							"opening1": "(query.mark_variant == 1) && (query.variant != 0)"
+						},
+						{
+							"particle2": "(query.scoreboard('halo') == 5)"
+						}
+					]
+				},
+				"particle2": {
+					"animations": [
+						"crate_particle","5halo"
+					],
+					"transitions": [
+						{
+							"particle": "(query.scoreboard('halo') < 4)"
+						},
+						{
+							"opening2": "(query.mark_variant == 1) && (query.variant != 0)"
+						},
+						{
+							"particle1": "(query.scoreboard('halo') == 4)"
+						}
+					]
+				},
+				"particle3": {
+					"animations": [
+						"crate_particle","1halo"
+					]
+				},
+				"particle4": {
+					"animations": [
+						"crate_particle","2halo"
+					]
+				},
+				"particle5": {
+					"animations": [
+						"crate_particle","3halo"
+					]
+				},
+				"particle6": {
+					"animations": [
+						"crate_particle","6halo"
+					]
+				},
+				"particle7": {
+					"animations": [
+						"crate_particle","7halo"
+					]
+				},
+				"particle8": {
+					"animations": [
+						"crate_particle","8halo"
+					]
+				},
+				"particle9": {
+					"animations": [
+						"crate_particle","9halo"
+					]
+				},
+				"particle10": {
+					"animations": [
+						"crate_particle","10halo"
+					]
+				},
+				"particle11": {
+					"animations": [
+						"crate_particle","11halo"
+					]
+				},
+				"particle12": {
+					"animations": [
+						"crate_particle","12halo"
+					]
+				},
+				"particle13": {
+					"animations": [
+						"crate_particle","13halo"
+					]
+				},
+				"particle14": {
+					"animations": [
+						"crate_particle","14halo"
+					]
+				},
+				"particle15": {
+					"animations": [
+						"crate_particle","15halo"
+					]
+				},
+				"particle16": {
+					"animations": [
+						"crate_particle","16halo"
+					]
+				},
+				"particle17": {
+					"animations": [
+						"crate_particle","17halo"
+					]
+				},
+				"particle18": {
+					"animations": [
+						"crate_particle","18halo"
+					]
+				},
+				"opening": {
+					"animations": [
+						"crate_particle","crate_lava"
+					],
+					"transitions": [
+						{
+							"start": "(query.mark_variant == 0)"
+						},
+						{
+							"smoke": "(query.mark_variant == 1) && (query.variant == 2)"
+						}
+					]
+				},
+				"smoke": {
+					"animations": [
+						"crate_particle","crate_smoke","crate_lava"
+					],
+					"transitions": [
+						{
+							"start": "(query.mark_variant == 3)"
+						}
+					]
+				},
+				"opening1": {
+					"animations": [
+						"crate_particle","crate_lava","4halo"
+					],
+					"transitions": [
+						{
+							"start": "(query.mark_variant == 0)"
+						},
+						{
+							"smoke1": "(query.mark_variant == 1) && (query.variant == 2)"
+						}
+					]
+				},
+				"opening2": {
+					"animations": [
+						"crate_particle","crate_lava","5halo"
+					],
+					"transitions": [
+						{
+							"start": "(query.mark_variant == 0)"
+						},
+						{
+							"smoke2": "(query.mark_variant == 1) && (query.variant == 2)"
+						}
+					]
+				},
+				"smoke1": {
+					"animations": [
+						"crate_particle","crate_smoke","crate_lava","4halo"
+					],
+					"transitions": [
+						{
+							"start": "(query.mark_variant == 3)"
+						}
+					]
+				},
+				"smoke2": {
+					"animations": [
+						"crate_particle","crate_smoke","crate_lava","5halo"
+					],
+					"transitions": [
+						{
+							"start": "(query.mark_variant == 3)"
+						}
+					]
+				}
+			}
+		}
+	}
+}

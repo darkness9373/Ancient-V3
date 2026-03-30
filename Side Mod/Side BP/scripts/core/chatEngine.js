@@ -19,8 +19,8 @@ world.beforeEvents.chatSend.subscribe(data => {
     }
 
     if (player.hasTag('admin')) {
-        world.sendMessage(`${display} §r§8>> §r${message}`)
+        world.sendMessage(`§g§l${'ADMIN'} §r${player.name}§r§8>> §r${message}`)
         return;
     }
-    world.sendMessage(`${display} §r§8>> §r${message}`)
+    world.sendMessage(`${display} §r${player.name}§r§8>> §r${message}`)
 })

@@ -1,0 +1,223 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.crate_particle": {
+			"loop": true,
+			"animation_length": 0.3,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": "/particle minecraft:end_chest ~ ~0.3 ~",
+				"0.1": "/particle minecraft:end_chest ~ ~0.3 ~",
+				"0.2": "/particle minecraft:end_chest ~ ~0.3 ~",
+				"0.3": "/particle minecraft:end_chest ~ ~0.3 ~"
+			}
+		},
+		"animation.crate_halo1": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": "/particle je:redflame ~ ~ ~"
+			}
+		},
+		"animation.crate_halo2": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": "/particle je:blueflame ~ ~ ~"
+			}
+		},
+		"animation.crate_halo3": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": "/particle je:green ~ ~ ~"
+			}
+		},
+		"animation.crate_halo4": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": "/particle je:snow ~ ~ ~"
+			}
+		},
+		"animation.crate_halo5": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle je:fallingchant1 ~ ~ ~",
+					"/particle je:fallingchant2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo6": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": "/particle je:stars ~ ~ ~"
+			}
+		},
+		"animation.crate_halo7": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle je:rgb ~ ~ ~",
+					"/particle je:rgb2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo8": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:greenspiral ~ ~ ~",
+					"/particle src:greenspiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo9": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:bluespiral ~ ~ ~",
+					"/particle src:bluespiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo10": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:redspiral ~ ~ ~",
+					"/particle src:redspiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo11": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:yellowspiral ~ ~ ~",
+					"/particle src:yellowspiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo12": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:purplespiral ~ ~ ~",
+					"/particle src:purplespiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo13": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:orangespiral ~ ~ ~",
+					"/particle src:orangespiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo14": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:cyanspiral ~ ~ ~",
+					"/particle src:cyanspiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo15": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:magentaspiral ~ ~ ~",
+					"/particle src:magentaspiral2 ~ ~ ~"
+			]
+			}
+		},
+		"animation.crate_halo16": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:discordspiral ~ ~ ~",
+					"/particle src:discordspiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo17": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": [
+					"/particle src:pinkspiral ~ ~ ~",
+					"/particle src:pinkspiral2 ~ ~ ~"
+				]
+			}
+		},
+		"animation.crate_halo18": {
+			"loop": true,
+			"animation_length": 2.05,
+			"blend_weight": "1",
+			"timeline": {
+				"0.0": "/particle src:snowstorm ~ ~ ~"
+			}
+		},
+		"animation.crate_lava": {
+			"loop": false,
+			"animation_length": 8,
+			"blend_weight": "1",
+			"timeline": {
+				"0.5": "/particle je:lava ~ ~0.6 ~"
+			}
+		},
+		"animation.crate_smoke": {
+			"loop": true,
+			"animation_length": 0.2,
+			"blend_weight": "1",
+			"timeline": {
+				"0.1": [
+					"/particle minecraft:basic_smoke_particle ~0.25 ~0.7 ~0.25",
+					"/particle minecraft:basic_smoke_particle ~-0.25 ~0.7 ~0.25",
+					"/particle minecraft:basic_smoke_particle ~0.25 ~0.7 ~-0.25",
+					"/particle minecraft:basic_smoke_particle ~-0.25 ~0.7 ~-0.25",
+					"/particle minecraft:basic_smoke_particle ~0.25 ~0.7 ~",
+					"/particle minecraft:basic_smoke_particle ~-0.25 ~0.7 ~",
+					"/particle minecraft:basic_smoke_particle ~ ~0.7 ~0.25",
+					"/particle minecraft:basic_smoke_particle ~ ~0.7 ~-0.25",
+					"/particle minecraft:basic_smoke_particle ~0.25 ~0.7 ~",
+					"/particle minecraft:basic_smoke_particle ~-0.25 ~0.7 ~"
+				]
+			}
+		}
+	}
+}

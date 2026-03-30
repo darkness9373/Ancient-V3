@@ -1,0 +1,8 @@
+grid key: §g§r§i§d
+
+scriptAPI:
+//grid
+new ActionFormData().title("§lHELLO - WORLD§g§r§i§d")
+
+//default
+new ActionFormData().title("§lHELLO - WORLD")

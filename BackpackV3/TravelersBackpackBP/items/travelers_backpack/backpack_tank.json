@@ -1,0 +1,24 @@
+{
+    "format_version": "1.20.70",
+    "minecraft:item": {
+        "description": {
+            "identifier": "travelers_backpack:backpack_tank",
+            "menu_category": {
+                "category": "items",
+                "group": "itemGroup.name.travelers"
+            }
+        },
+        "components": {
+            "minecraft:icon": {
+                "textures": {
+                    "default": "travelers_backpack:tank"
+                }
+            },
+            "minecraft:display_name": {
+                "value": "Backpack Tank"
+            },
+            "minecraft:allow_off_hand": true,
+            "minecraft:max_stack_size": 16
+        }
+    }
+}

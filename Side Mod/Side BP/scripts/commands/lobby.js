@@ -10,9 +10,12 @@ system.beforeEvents.startup.subscribe(data => {
     }, (origin) => {
         const player = origin.sourceEntity;
         if (!(player instanceof Player)) return;
-        player.tryTeleport(LOBBY.pos, {
-            dimension: world.getDimension(LOBBY.dimension)
-        })
+		if (player.hasTag('on_raid')) return player.sendMessage("§c[!] Can't use this command on dungeon raid")
+        system.run(() => {
+			player.tryTeleport(LOBBY.pos, {
+				dimension: world.getDimension(LOBBY.dimension)
+			})
+		})
         player.sendMessage('§a[!] Teleported to lobby')
     })
 })

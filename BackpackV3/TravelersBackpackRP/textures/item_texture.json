@@ -1,0 +1,72 @@
+{
+  "resource_pack_name": "backpacks",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "travelers_backpack:tank": {
+      "textures": "textures/travelers_backpack/common/items/backpack_tank"
+    },
+    "travelers_backpack:wither": {
+      "textures": "textures/travelers_backpack/common/items/bp_wither"
+    },
+    "travelers_backpack:cherry_blossom": {
+      "textures": "textures/travelers_backpack/common/items/bp_cherry_blossom"
+    },
+    "travelers_backpack:cow": {
+      "textures": "textures/travelers_backpack/common/items/bp_cow"
+    },
+    "travelers_backpack:creeper": {
+      "textures": "textures/travelers_backpack/common/items/bp_creeper"
+    },
+    "travelers_backpack:diamond": {
+      "textures": "textures/travelers_backpack/common/items/bp_diamond"
+    },
+    "travelers_backpack:dirt": {
+      "textures": "textures/travelers_backpack/common/items/bp_dirt"
+    },
+    "travelers_backpack:dragon": {
+      "textures": "textures/travelers_backpack/common/items/bp_dragon"
+    },
+    "travelers_backpack:end": {
+      "textures": "textures/travelers_backpack/common/items/bp_end"
+    },
+    "travelers_backpack:enderman": {
+      "textures": "textures/travelers_backpack/common/items/bp_enderman"
+    },
+    "travelers_backpack:fox": {
+      "textures": "textures/travelers_backpack/common/items/bp_fox"
+    },
+    "travelers_backpack:gold": {
+      "textures": "textures/travelers_backpack/common/items/bp_gold"
+    },
+    "travelers_backpack:iron": {
+      "textures": "textures/travelers_backpack/common/items/bp_iron"
+    },
+    "travelers_backpack:nether": {
+      "textures": "textures/travelers_backpack/common/items/bp_nether_portal"
+    },
+    "travelers_backpack:netherite": {
+      "textures": "textures/travelers_backpack/common/items/bp_netherite"
+    },
+    "travelers_backpack:oak_wood": {
+      "textures": "textures/travelers_backpack/common/items/bp_oak_wood"
+    },
+    "travelers_backpack:pig": {
+      "textures": "textures/travelers_backpack/common/items/bp_pig"
+    },
+    "travelers_backpack:rainbow": {
+      "textures": "textures/travelers_backpack/common/items/bp_rainbow"
+    },
+    "travelers_backpack:redstone": {
+      "textures": "textures/travelers_backpack/common/items/bp_redstone"
+    },
+    "travelers_backpack:skeleton": {
+      "textures": "textures/travelers_backpack/common/items/bp_skeleton"
+    },
+    "travelers_backpack:standard": {
+      "textures": "textures/travelers_backpack/common/items/bp_standard"
+    },
+    "travelers_backpack:wolf": {
+      "textures": "textures/travelers_backpack/common/items/bp_wolf"
+    }
+  }
+}

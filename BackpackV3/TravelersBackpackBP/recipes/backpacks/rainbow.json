@@ -1,0 +1,52 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:rainbow"
+        },
+        "tags": ["crafting_table"],
+        "pattern": [
+          "YLX",
+          "MBP",
+          "ONR"
+        ],
+        "key": {
+          "B": {
+            "item": "travelers_backpack:standard_backpack_item"
+          },
+          "Y": {
+            "item": "minecraft:yellow_dye"
+          },
+          "L": {
+            "item": "minecraft:lime_dye"
+          },
+          "X": {
+            "item": "minecraft:blue_dye"
+          },
+          "P": {
+            "item": "minecraft:pink_dye"
+          },
+          "M": {
+            "item": "minecraft:purple_dye"
+          },
+          "O": {
+            "item": "minecraft:orange_dye"
+          },
+          "N": {
+            "item": "minecraft:light_blue_dye"
+          },
+          "R": {
+            "item": "minecraft:red_dye"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:rainbow_backpack_item",
+          "count": 1
+        }
+    }
+}

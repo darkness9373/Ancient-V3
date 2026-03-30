@@ -1,0 +1,1759 @@
+{
+  "namespace": "travelers_backpack_default",
+  //Grids
+  "invisible_slot": {
+    "type": "panel",
+    "size": [
+      0,
+      0
+    ]
+  },
+  "bucket_drawer": {
+    "type": "image",
+    "size": [
+      16,
+      16
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "texture": "textures/travelers_backpack/common/gui/bucket_drawer",
+    "alpha": 0.5
+  },
+  "bucket": {
+    "type": "image",
+    "size": [
+      16,
+      16
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "texture": "textures/items/bucket_empty",
+    "alpha": 0.5
+  },
+  "liquid_flip_book": {
+    "anim_type": "aseprite_flip_book",
+    "initial_uv": [
+      0,
+      0
+    ]
+  },
+  "liquid_texture": {
+    "type": "image",
+    "size": [
+      16,
+      16
+    ],
+    "offset": [
+      "100%",
+      "100%"
+    ],
+    "tiled": "y",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "uv_size": [
+      16,
+      16
+    ],
+    "uv": "@travelers_backpack_default.liquid_flip_book",
+    "clip_direction": "up",
+    "clip_ratio": 0.00,
+    "texture": "#texture",
+    "property_bag": {
+      "#require": "b0.00"
+    },
+    "bindings": [
+      {
+        "binding_name": "#hover_text",
+        "binding_type": "collection",
+        "binding_condition": "always",
+        "binding_collection_name": "container_items"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#hover_text - '§f§o' - '§r§r§r'))",
+        "binding_condition": "visibility_changed",
+        "target_property_name": "#hover_fixed"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(('%.5s' * #hover_fixed))",
+        "binding_condition": "visibility_changed",
+        "target_property_name": "#bar_percent"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "('textures/travelers_backpack/common/gui/liquids/'+(#hover_fixed - #bar_percent))",
+        "target_property_name": "#texture"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#bar_percent = #require)",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "liquid_bar": {
+    "type": "stack_panel",
+    "anchor_from": "top_middle",
+    "anchor_to": "bottom_middle",
+    "orientation": "horizontal",
+    "size": [
+      16,
+      16
+    ],
+    "$slot_index": 0,
+    "$require": "b0.00",
+    "collection_name": "container_items",
+    "controls": [
+      {
+        "texture@liquid_texture": {
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "collection_index": "$slot_index",
+          "property_bag": {
+            "#require": "$require"
+          }
+        }
+      }
+    ]
+  },
+  "liquid_image_temp": {
+    "type": "panel",
+    "$index": 0,
+    "controls": [
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "0%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.00",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "1%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.01",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "2%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.02",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "3%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.03",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "4%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.04",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "5%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.05",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "6%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.06",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "7%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.07",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "8%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.08",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "9%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.09",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "10%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.10",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "11%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.11",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "12%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.12",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "13%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.13",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "14%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.14",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "15%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.15",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "16%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.16",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "17%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.17",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "18%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.18",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "19%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.19",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "20%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.20",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "21%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.21",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "22%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.22",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "23%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.23",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "24%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.24",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "25%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.25",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "26%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.26",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "27%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.27",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "28%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.28",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "29%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.29",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "30%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.30",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "31%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.31",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "32%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.32",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "33%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.33",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "34%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.34",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "35%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.35",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "36%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.36",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "37%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.37",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "38%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.38",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "39%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.39",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "40%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.40",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "41%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.41",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "42%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.42",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "43%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.43",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "44%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.44",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "45%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.45",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "46%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.46",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "47%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.47",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "48%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.48",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "49%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.49",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "50%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.50",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "51%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.51",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "52%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.52",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "53%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.53",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "54%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.54",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "55%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.55",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "56%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.56",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "57%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.57",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "58%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.58",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "59%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.59",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "60%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.60",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "61%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.61",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "62%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.62",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "63%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.63",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "64%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.64",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "65%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.65",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "66%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.66",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "67%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.67",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "68%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.68",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "69%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.69",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "70%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.70",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "71%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.71",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "72%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.72",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "73%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.73",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "74%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.74",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "75%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.75",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "76%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.76",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "77%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.77",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "78%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.78",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "79%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.79",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "80%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.80",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "81%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.81",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "82%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.82",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "83%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.83",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "84%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.84",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "85%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.85",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "86%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.86",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "87%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.87",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "88%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.88",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "89%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.89",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "90%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.90",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "91%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.91",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "92%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.92",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "93%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.93",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "94%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.94",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "95%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.95",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "96%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.96",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "97%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.97",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "98%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.98",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "99%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b0.99",
+          "$slot_index": "$index"
+        }
+      },
+      {
+        "bar@liquid_bar": {
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "offset": [
+            0,
+            "100%"
+          ],
+          "$require": "b1.00",
+          "$slot_index": "$index"
+        }
+      }
+    ]
+  },
+  "grid_item@chest.chest_grid_item": {
+    "$background_images": "travelers_backpack_default.invisible_slot"
+  },
+  "grid_item2@chest.chest_grid_item": {},
+  "grid_item_selectable": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [
+      18,
+      18
+    ],
+    "$slot_index": 0,
+    "collection_name": "container_items",
+    "$overlay": "",
+    "controls": [
+      {
+        "grid_item@travelers_backpack_default.grid_item2": {
+          "$cell_overlay_ref": "$overlay",
+          "collection_index": "$slot_index"
+        }
+      }
+    ]
+  },
+  "container_grid": {
+    "type": "grid",
+    "size": [
+      162,
+      108
+    ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "grid_dimensions": [
+      9,
+      6
+    ],
+    "grid_item_template": "travelers_backpack_default.grid_item",
+    "collection_name": "container_items"
+  },
+  //Top Halfs
+  "top_half": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "50%"
+    ],
+    "offset": [
+      0,
+      12
+    ],
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "controls": [
+      {
+        "tank_1_bucket_insert@travelers_backpack_default.grid_item_selectable": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "$slot_index": 54,
+          "$overlay": "travelers_backpack_default.bucket",
+          "offset": [
+            -25,
+            "-4.1px"
+          ]
+        }
+      },
+      {
+        "liquid_test@liquid_image_temp": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [
+            -24,
+            "17.5px"
+          ],
+          "size": [
+            "16px",
+            "75px"
+          ],
+          "$index": 58
+        }
+      },
+      {
+        "tank_1_bucket_remover@travelers_backpack_default.grid_item_selectable": {
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "$slot_index": 55,
+          "$overlay": "travelers_backpack_default.bucket_drawer",
+          "offset": [
+            -25,
+            "4.5px"
+          ]
+        }
+      },
+      {
+        "tank_2_bucket_insert@travelers_backpack_default.grid_item_selectable": {
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "$slot_index": 56,
+          "$overlay": "travelers_backpack_default.bucket",
+          "offset": [
+            25,
+            "-4.1px"
+          ]
+        }
+      },
+      {
+        "liquid_test2@liquid_image_temp": {
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "offset": [
+            24,
+            "17.5px"
+          ],
+          "size": [
+            "16px",
+            "75px"
+          ],
+          "$index": 59
+        }
+      },
+      {
+        "tank_2_bucket_remover@travelers_backpack_default.grid_item_selectable": {
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "$slot_index": 57,
+          "$overlay": "travelers_backpack_default.bucket_drawer",
+          "offset": [
+            25,
+            "4.5px"
+          ]
+        }
+      },
+      {
+        "grid@travelers_backpack_default.container_grid": {
+          "offset": [
+            7,
+            "-0.1px"
+          ]
+        }
+      }
+    ]
+  },
+  //Screens
+  "screen": {
+    "type": "panel",
+    "controls": [
+      {
+        "container_gamepad_helpers@common.container_gamepad_helpers": {}
+      },
+      {
+        "flying_item_renderer@common.flying_item_renderer": {
+          "layer": 14
+        }
+      },
+      {
+        "selected_item_details_factory@common.selected_item_details_factory": {}
+      },
+      {
+        "item_lock_notification_factory@common.item_lock_notification_factory": {}
+      },
+      {
+        "root_panel@common.root_panel": {
+          "layer": 1,
+          "size": [
+            176,
+            220
+          ],
+          "controls": [
+            {
+              "bg": {
+                "layer": 2,
+                "size": [
+                  240,
+                  220
+                ],
+                "type": "image",
+                "texture": "textures/travelers_backpack/common/gui/backpack_standard"
+              }
+            },
+            {
+              "close_button@common.compact_close_button":{
+                "offset": [0, 1]
+              }
+            },
+            {
+              "chest_panel": {
+                "type": "panel",
+                "layer": 5,
+                "offset": [
+                  0,
+                  -0.5
+                ],
+                "controls": [
+                  {
+                    "small_chest_panel_top_half@travelers_backpack_default.top_half": {}
+                  },
+                  {
+                    "inventory_panel_bottom_half_with_label@common.inventory_panel_bottom_half_with_label": {}
+                  },
+                  {
+                    "hotbar_grid@common.hotbar_grid_template": {}
+                  },
+                  {
+                    "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {}
+                  }
+                ]
+              }
+            },
+            {
+              "inventory_selected_icon_button@common.inventory_selected_icon_button": {}
+            },
+            {
+              "gamepad_cursor@common.gamepad_cursor_button": {}
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

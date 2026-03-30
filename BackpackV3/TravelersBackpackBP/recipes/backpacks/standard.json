@@ -1,0 +1,40 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier":"travelers_backpack:standard_backpack_item"
+        },
+        "tags": ["crafting_table"],
+        "pattern": [
+          "XBX",
+          "CDC",
+          "X X"
+        ],
+        "key": {
+          "B": {
+            "item": "minecraft:gold_ingot"
+          },
+      
+          "X": {
+            "item": "minecraft:leather"
+          },
+      
+          "C": {
+            "item": "travelers_backpack:backpack_tank"
+          },
+      
+          "D": {
+            "item": "minecraft:chest"
+          }
+        },
+        "unlock": [
+          {
+            "item": "minecraft:chest"
+          }
+        ],
+        "result": {
+          "item":"travelers_backpack:standard_backpack_item",
+          "count": 1
+        }
+    }
+}

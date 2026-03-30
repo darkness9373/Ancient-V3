@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.70",
+  "minecraft:item": {
+    "description": {
+      "identifier": "travelers_backpack:fox_backpack_item",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "travelers_backpack:fox"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "Traveler Backpack [Fox]"
+      },
+      "minecraft:block_placer": {
+        "block": "travelers_backpack:fox_backpack"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.weapon.offhand"
+      },
+      "minecraft:tags": {
+        "tags": [
+          "travelers_backpack:is_backpack"
+        ]
+      },
+      "minecraft:max_stack_size": 1
+    }
+  }
+}

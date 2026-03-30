@@ -1,4 +1,4 @@
-import { system, Player, CommandPermissionLevel, world } from '@minecraft/server'
+import { system, Player, CommandPermissionLevel, CustomCommandParamType, world } from '@minecraft/server'
 import { getRankActive } from '../core/database'
 
 const warning1 = 500
@@ -22,6 +22,7 @@ system.beforeEvents.startup.subscribe(data => {
     }, (origin, fly) => {
         const player = origin.sourceEntity;
         if (!(player instanceof Player)) return;
+		if (player.hasTag('on_raid')) return player.sendMessage("§c[!] Can't use this command on dungeon raid")
         const config = getRankActive(player)
         if (!config || !config.commands.includes('fly')) return player.sendMessage('§c[!] You do not have permission to use this command')
         if (fly === 'enable') {
@@ -30,13 +31,13 @@ system.beforeEvents.startup.subscribe(data => {
                 return player.sendMessage('§c[!] Fly energy is used up, wait until it is full again')
             }
             data.enabled = true;
-            player.runCommand('ability @s mayfly true')
+            system.run(() => player.runCommand('ability @s mayfly true'))
             player.sendMessage('§c[!] Fly mode is enabled')
         }
         else if (fly === 'disable') {
             let data = loadFlyData(player, config.flyEnergy)
             data.enabled = false;
-            player.runCommand('ability @s mayfly false')
+            system.run(() => player.runCommand('ability @s mayfly false'))
             player.sendMessage('§c[!] Fly mode is disabled')
         }
     })
@@ -44,12 +45,20 @@ system.beforeEvents.startup.subscribe(data => {
 
 system.runInterval(() => {
     for (const player of world.getPlayers()) {
-        if (player.hasTag('admin')) continue;
+        if (player.hasTag('admin')) {
+			continue;
+		}
         const config = getRankActive(player)
-        if (!config) continue;
-        if (!config.commands.includes('fly')) continue;
+        if (!config) {
+			continue;
+		}
+        if (!config.commands.includes('fly')) {
+			continue;
+		}
         let data = loadFlyData(player, config.flyEnergy)
-        if (!data) continue;
+        if (!data) {
+			continue;
+		}
         const isFlying = player.isFlying
         if (data.enabled && isFlying && !data.locked) {
             data.energy--;
@@ -72,6 +81,7 @@ system.runInterval(() => {
                 player.sendMessage('§c[!] Fly energy is almost empty')
                 display = `§c${data.energy}/${config.flyEnergy}`
             }
+			player.onScreenDisplay.setActionBar(display)
         }
         if (!isFlying) {
             if (system.currentTick % 4 === 0) {
@@ -99,9 +109,9 @@ system.runInterval(() => {
     }
 }, 200)
 
-world.afterEvents.playerLeave.subscribe(data => {
-    const playerId = data.playerId;
-    const data = flyCache.get(playerId)
+world.afterEvents.playerLeave.subscribe(ev => {
+    const playerId = ev.playerId;
+    let data = loadFlyData
     if (!data) return;
     const player = [...world.getPlayers()].find(p => p.id === playerId)
     if (player) {

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.travelers_backpack.backpack": {
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.default" ],
+      "part_visibility": [
+         {
+          "tank_lava": false,
+          "tank_lava2": false,
+          "tank_water": false,
+          "tank_water2": false
+         }
+      ]
+    }
+  }
+}

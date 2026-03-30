@@ -14,9 +14,15 @@ system.runInterval(() => {
             player.applyDamage(1, { cause: 'drowning' });
         }
     };
-    for (const boat of world.getDimension('overworld').getEntities({ type: 'minecraft:boat' })) {
-        const age = boat.getDynamicProperty('age') ?? 0;
-        boat.setDynamicProperty('age', age + 1);
-        if (age >= 3) boat.remove();
+    for (const boat of world.getDimension('overworld').getEntities()) {
+		if (boat.typeId.includes('boat')) {
+			const block = boat.dimension.getBlock(boat.location) || null;
+			if (block) {
+				if (block.typeId !== 'minecraft:water' && block.typeId !== 'minecraft:flowing_water') continue;
+				const age = boat.getDynamicProperty('age') ?? 0;
+				boat.setDynamicProperty('age', age + 1);
+				if (age >= 3) boat.remove();
+			}
+		}
     }
 }, 20);

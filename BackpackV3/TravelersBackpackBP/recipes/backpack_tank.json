@@ -1,0 +1,27 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:backpack_tank"
+        },
+        "pattern":[
+          "XBX",
+          "XXX",
+          "XBX"
+        ],
+        "tags": ["crafting_table"],
+        "key":{
+          "B":{
+            "item": "minecraft:iron_ingot"
+          },
+          "X": {
+            "item": "minecraft:glass"
+          }
+        },
+      
+        "result": {
+          "item": "travelers_backpack:backpack_tank",
+          "count": 1
+        }
+    }
+}

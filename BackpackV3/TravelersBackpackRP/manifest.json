@@ -1,0 +1,31 @@
+{
+	"format_version": 2,
+	"header": {
+        "description": "Download free addons on vatonage.com",
+        "name": "Traveler's Backpack (vatonage.com)",
+		"uuid": "d4c74f58-984b-41a3-bb93-7079bc715149",
+		"version": [1, 0, 0],
+		"min_engine_version": [
+			1,
+			16,
+			0
+		]
+	},
+	"dependencies": [
+		{
+			"uuid": "f608a8eb-4455-47d1-b72b-c34738fae70b",
+			"version": [1, 0, 0]
+		}
+	],
+	"modules": [
+		{
+			"type": "resources",
+			"uuid": "39d06d28-7416-4f54-b878-f4989176ccbd",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	]
+}

@@ -1,0 +1,49 @@
+{
+	"format_version": 2,
+	"header": {
+        "description": "Download free addons on vatonage.com",
+        "name": "Traveler's Backpack (vatonage.com)",
+		"uuid": "f608a8eb-4455-47d1-b72b-c34738fae70b",
+		"version": [
+			1,
+			0,
+			0
+		],
+		"min_engine_version": [
+			1,
+			21,
+			0
+		]
+	},
+	"modules": [
+		{
+			"uuid": "21019ee2-adfd-4068-af90-cdebddf38c57",
+			"type": "data",
+			"version": [
+				1,
+				0,
+				0
+			]
+		},
+		{
+			"type": "script",
+			"language": "javascript",
+			"uuid": "d9c4f066-7790-4813-b77e-f60588bca4c2",
+			"version": [1, 0, 0],
+			"entry": "scripts/main.js"
+		}
+	],
+	"capabilities": [
+		"script_eval"
+	],
+	"dependencies": [
+		{
+			"module_name": "@minecraft/server",
+			"version": "1.10.0"
+		},
+		{
+			"uuid": "d4c74f58-984b-41a3-bb93-7079bc715149",
+			"version": [1, 0, 0]
+		}
+	]
+}

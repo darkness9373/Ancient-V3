@@ -1,0 +1,38 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:creeper"
+        },
+        "tags": ["crafting_table"],
+        "pattern": [
+          "XAX",
+          "XDX",
+          "BBB"
+        ],
+        "key": {
+          "D": {
+            "item": "travelers_backpack:standard_backpack_item"
+          },
+          "B": {
+            "item": "minecraft:tnt"
+          },
+          "A": {
+            "item": "minecraft:skull",
+            "data": 4
+          },
+          "X": {
+            "item": "minecraft:gunpowder"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:creeper_backpack_item",
+          "count": 1
+        }
+    }
+}

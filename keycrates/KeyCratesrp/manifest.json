@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "§eKey Crates §c1.20",
+    "description": "An addon that introduces custom crates for players to open using keys, offering exciting loot and surprises.\nUnlock the mystery within the crates!\nMade by jrxx",
+    "uuid": "c558e823-a3e4-4374-8051-d6bdfbdb6330",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      19,
+      80
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "fb8c2e2e-1ccb-41af-b7d6-1b56200b16e0",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

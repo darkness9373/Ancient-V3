@@ -1,0 +1,44 @@
+{
+  "format_version": "1.12.0",
+  "render_controllers": {
+    "controller.render.crate": {
+      "geometry": "Array.geo[query.skin_id]",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[query.skin_id]"
+      ],
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.default",
+            "Texture.normal",
+            "Texture.custom",
+            "Texture.custom1",
+            "Texture.custom2",
+            "Texture.custom3",
+            "Texture.custom4",
+            "Texture.custom5",
+            "Texture.miner"
+          ]
+        },
+        "geometries": {
+          "Array.geo": [
+            "Geometry.default",
+            "Geometry.change",
+            "Geometry.custom",
+            "Geometry.custom1",
+            "Geometry.custom2",
+            "Geometry.custom3",
+            "Geometry.custom4",
+            "Geometry.custom5",
+            "Geometry.miner"
+          ]
+        }
+      }
+    }
+  }
+}

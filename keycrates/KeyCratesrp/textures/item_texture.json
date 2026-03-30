@@ -1,0 +1,42 @@
+{
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "je:keycrate_spawnegg": {
+      "textures": "textures/custom/keycrate_spawn_egg"
+    },
+    "je:key1": {
+      "textures": "textures/custom/key1"
+    },
+    "je:key2": {
+      "textures": "textures/custom/key2"
+    },
+    "je:key3": {
+      "textures": "textures/custom/key3"
+    },
+    "je:key4": {
+      "textures": "textures/custom/key4"
+    },
+    "je:key5": {
+      "textures": "textures/custom/key5"
+    },
+    "je:key6": {
+      "textures": "textures/custom/key6"
+    },
+    "je:key7": {
+      "textures": "textures/custom/key7"
+    },
+    "je:key8": {
+      "textures": "textures/custom/key8"
+    },
+    "je:key9": {
+      "textures": "textures/custom/key9"
+    },
+    "je:key10": {
+      "textures": "textures/custom/key10"
+    },
+    "src:backpack": {
+      "textures": "textures/custom/backpack"
+    }
+  }
+}

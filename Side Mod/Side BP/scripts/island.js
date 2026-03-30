@@ -25,7 +25,8 @@ world.afterEvents.worldLoad.subscribe(() => {
                 status: null,
                 pendingRequests: [],
                 maxMembers: 5,
-                createAt: null
+                createAt: null,
+				allowed: []
             });
         }
     }

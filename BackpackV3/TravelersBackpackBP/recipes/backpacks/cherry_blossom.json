@@ -1,0 +1,37 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:cherry_blossom"
+        },
+        "tags": ["crafting_table"],
+        "pattern": [
+          "XBX",
+          "BDB",
+          "XFX"
+        ],
+        "key": {
+          "D": {
+            "item": "travelers_backpack:standard_backpack_item"
+          },
+          "B": {
+            "item": "minecraft:cherry_leaves"
+          },
+          "X": {
+            "item": "minecraft:pink_dye"
+          },
+          "F": {
+            "item": "minecraft:cherry_sapling"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:cherry_blossom_backpack_item",
+          "count": 1
+        }
+    }
+}

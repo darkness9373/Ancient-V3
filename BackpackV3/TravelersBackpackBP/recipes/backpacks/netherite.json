@@ -1,0 +1,31 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:netherite"
+        },
+        "tags": ["crafting_table"],
+        "pattern": [
+          " N ",
+          "NDN",
+          " N "
+        ],
+        "key": {
+          "D": {
+            "item": "travelers_backpack:standard_backpack_item"
+          },
+          "N": {
+            "item": "minecraft:netherite_ingot"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:netherite_backpack_item",
+          "count": 1
+        }
+    }
+}

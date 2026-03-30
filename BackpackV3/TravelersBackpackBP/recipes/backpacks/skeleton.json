@@ -1,0 +1,37 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:skeleton"
+        },
+        "tags": ["crafting_table"],
+        "pattern":  [
+          "ZCZ",
+          "CDC",
+          "ZVZ"
+        ],
+        "key": {
+          "C": {
+            "item": "minecraft:arrow"
+          },
+          "V": {
+            "item": "minecraft:bow"
+          },
+          "Z": {
+            "item": "minecraft:bone"
+          },
+          "D": {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:skeleton_backpack_item",
+          "count": 1
+        }
+    }
+}

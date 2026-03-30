@@ -1,0 +1,34 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:oak_wood"
+        },
+        "tags": ["crafting_table"],
+        "pattern": [
+          "OLO",
+          "LBL",
+          "OLO"
+        ],
+        "key": {
+          "B": {
+            "item": "travelers_backpack:standard_backpack_item"
+          },
+          "L": {
+            "item": "minecraft:oak_planks"
+          },
+          "O": {
+            "item": "minecraft:oak_wood"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:oak_wood_backpack_item",
+          "count": 1
+        }
+    }
+}

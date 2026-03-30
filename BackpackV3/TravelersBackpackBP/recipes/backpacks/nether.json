@@ -1,0 +1,47 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:nether"
+        },
+        "tags": ["crafting_table"],
+        "pattern": [
+          "CXC",
+          "ADA",
+          "FBF"
+        ],
+        "key": {
+          "C": {
+            "item": "minecraft:quartz"
+          },
+      
+          "A": {
+            "item": "minecraft:netherrack"
+          },
+      
+          "B": {
+            "item": "minecraft:lava_bucket"
+          },
+      
+          "X": {
+            "item": "minecraft:nether_wart"
+          },
+      
+          "F": {
+            "item": "minecraft:blackstone"
+          },
+          "D": {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:nether_backpack_item",
+          "count": 1
+        }
+    }
+}

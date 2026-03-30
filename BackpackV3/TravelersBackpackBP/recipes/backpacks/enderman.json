@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "travelers_backpack:enderman"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " C ",
+      "CDC",
+      " C "
+    ],
+    "key": {
+      "C": {
+        "item": "minecraft:ender_pearl"
+      },
+      "D": {
+        "item": "travelers_backpack:standard_backpack_item"
+      }
+    },
+    "unlock": [
+      {
+        "item": "travelers_backpack:standard_backpack_item"
+      }
+    ],
+    "result": {
+      "item": "travelers_backpack:enderman_backpack_item",
+      "count": 1
+    }
+  }
+}

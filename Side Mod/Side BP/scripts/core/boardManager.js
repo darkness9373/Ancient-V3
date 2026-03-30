@@ -42,7 +42,7 @@ function makeLine(text, length) {
  * @param {Player} player 
  * @returns 
  */
-const data = (player) => {
+function data(player) {
     const ping = Score.get(player, 'ping') ?? 0
     const rank = getRankDisplay(player)
     let rankDisplay = 'No Rank'
@@ -68,3 +68,14 @@ const data = (player) => {
         RANK: rankDisplay
     }];
 };
+
+system.runInterval(() => {
+    for (const player of world.getPlayers()) {
+        const start = Date.now()
+        
+        system.run(() => {
+            const ping = Date.now() - start
+            Score.set(player, 'ping', ping)
+        })
+    }
+}, 60)

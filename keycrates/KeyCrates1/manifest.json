@@ -1,0 +1,50 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "\u00a7eKey Crates \u00a7b1.20",
+    "description": "An addon that introduces custom crates for players to open using keys, offering exciting loot and surprises.\nUnlock the mystery within the crates!\nMade by jrxx",
+    "uuid": "506c921e-c620-4b6f-8f68-8d8de8bd39cf",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      71
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "07a31a09-d50c-4d63-8c87-31133e19b77f",
+      "entry": "scripts/_loader.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "data",
+      "uuid": "53838436-ac3a-4d25-8994-1cd8277c4544",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.6.0-beta"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0-beta"
+    }
+  ]
+}

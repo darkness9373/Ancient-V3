@@ -1,0 +1,32 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "travelers_backpack:wolf"
+        },
+        "tags": ["crafting_table"],
+        "pattern":  [
+          " C ",
+          "CDC",
+          " C "
+        ],
+        "key": {
+          "C": {
+            "item": "minecraft:bone",
+            "data": 1
+          },
+          "D": {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        },
+        "unlock": [
+          {
+            "item":"travelers_backpack:standard_backpack_item"
+          }
+        ],
+        "result": {
+          "item": "travelers_backpack:wolf_backpack_item",
+          "count": 1
+        }
+    }
+}
